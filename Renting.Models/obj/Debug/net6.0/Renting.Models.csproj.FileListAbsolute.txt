@@ -1,0 +1,12 @@
+C:\Users\MONSTER\Documents\Projects\Renting\Renting.Models\bin\Debug\net6.0\Renting.Models.deps.json
+C:\Users\MONSTER\Documents\Projects\Renting\Renting.Models\bin\Debug\net6.0\Renting.Models.dll
+C:\Users\MONSTER\Documents\Projects\Renting\Renting.Models\bin\Debug\net6.0\Renting.Models.pdb
+C:\Users\MONSTER\Documents\Projects\Renting\Renting.Models\obj\Debug\net6.0\Renting.Models.csproj.AssemblyReference.cache
+C:\Users\MONSTER\Documents\Projects\Renting\Renting.Models\obj\Debug\net6.0\Renting.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\MONSTER\Documents\Projects\Renting\Renting.Models\obj\Debug\net6.0\Renting.Models.AssemblyInfoInputs.cache
+C:\Users\MONSTER\Documents\Projects\Renting\Renting.Models\obj\Debug\net6.0\Renting.Models.AssemblyInfo.cs
+C:\Users\MONSTER\Documents\Projects\Renting\Renting.Models\obj\Debug\net6.0\Renting.Models.csproj.CoreCompileInputs.cache
+C:\Users\MONSTER\Documents\Projects\Renting\Renting.Models\obj\Debug\net6.0\Renting.Models.dll
+C:\Users\MONSTER\Documents\Projects\Renting\Renting.Models\obj\Debug\net6.0\refint\Renting.Models.dll
+C:\Users\MONSTER\Documents\Projects\Renting\Renting.Models\obj\Debug\net6.0\Renting.Models.pdb
+C:\Users\MONSTER\Documents\Projects\Renting\Renting.Models\obj\Debug\net6.0\ref\Renting.Models.dll
