@@ -212,3 +212,8 @@ AS
 	WHERE 
 		[AdvertId] = @AdvertId;
 GO
+
+USE [RentingDB]
+GO
+
+

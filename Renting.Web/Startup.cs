@@ -27,14 +27,8 @@ namespace Renting.Web
 
             services.AddScoped<IAccountRepository, AccountRepository>();
 
-            services.AddIdentityCore<ApplicationUserIdentity>(opt =>
-            {
-                var allowed = opt.User.AllowedUserNameCharacters
-                  + "abcçdefgğhıijklmnoöprsştuüvyzxqwABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZXQW-._@+0123456789";
-                opt.User.AllowedUserNameCharacters = allowed;
-                opt.Password.RequireNonAlphanumeric = true;
-
-            })
+            services.AddIdentityCore<ApplicationUserIdentity>(
+            )
                 .AddUserStore<UserStore>()
                 .AddDefaultTokenProviders()
                 .AddSignInManager<SignInManager<ApplicationUserIdentity>>();
@@ -68,7 +62,6 @@ namespace Renting.Web
                     }
                 );
 
-            services.AddAuthorization();
 
         }
 
@@ -84,7 +77,6 @@ namespace Renting.Web
                 app.UseExceptionHandler("/Error");
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();

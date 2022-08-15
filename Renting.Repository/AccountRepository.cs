@@ -71,6 +71,25 @@ namespace Renting.Repository
 
             return applicationUser;
         }
+
+        public async Task<ApplicationUserIdentity> GetByUsernameAsync(string normalizedUsername, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            ApplicationUserIdentity applicationUser;
+
+            using (var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
+            {
+                await connection.OpenAsync(cancellationToken);
+
+                applicationUser = await connection.QuerySingleOrDefaultAsync<ApplicationUserIdentity>(
+                    "Account_GetByUsername", new { NormalizedUsername = normalizedUsername },
+                    commandType: CommandType.StoredProcedure
+                    );
+            }
+
+            return applicationUser;
+        }
     }
 }
 

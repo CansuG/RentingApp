@@ -20,9 +20,9 @@ namespace Renting.Identity
             return await _accountRepository.CreateAsync(user, cancellationToken);
         }
 
-        public Task<ApplicationUserIdentity> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
+        public async Task<ApplicationUserIdentity> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await _accountRepository.GetByUsernameAsync(normalizedUserName, cancellationToken);
         }
 
         public Task<IdentityResult> DeleteAsync(ApplicationUserIdentity user, CancellationToken cancellationToken)

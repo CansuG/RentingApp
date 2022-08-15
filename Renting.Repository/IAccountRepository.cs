@@ -7,6 +7,8 @@ namespace Renting.Repository
     {
         public Task<IdentityResult> CreateAsync(ApplicationUserIdentity user, CancellationToken cancellationToken);
 
-        public Task<ApplicationUserIdentity> GetByEmailAsync(string normalizedUsername, CancellationToken cancellationToken);
+        public Task<ApplicationUserIdentity> GetByEmailAsync(string normalizedEmail, CancellationToken cancellationToken);
+
+        public Task<ApplicationUserIdentity> GetByUsernameAsync(string normalizedUsername, CancellationToken cancellationToken);
     }
 }
