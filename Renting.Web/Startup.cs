@@ -26,6 +26,7 @@ namespace Renting.Web
             services.AddScoped<ITokenService, TokenService>();
 
             services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IAdvertRepository, AdvertRepository>();
 
             services.AddIdentityCore<ApplicationUserIdentity>(
             )

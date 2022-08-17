@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Account\" />
-    <Folder Include="Advert\" />
   </ItemGroup>
 
 </Project>

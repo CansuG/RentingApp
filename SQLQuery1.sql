@@ -50,7 +50,7 @@ CREATE TYPE [dbo].[AdvertType] AS TABLE
 	[District] NVARCHAR(30) NOT NULL,
 	[Neighbourhood] NVARCHAR(30) NOT NULL,
 	[Rooms] NVARCHAR(30) NOT NULL,
-	[Price] NVARCHAR(30) NOT NULL,
+	[Price] Decimal(10,2) NOT NULL,
 	[FloorArea] NVARCHAR(30) NOT NULL
 )
 GO
@@ -282,3 +282,6 @@ ADD FloorArea NVARCHAR(30) NOT NULL;
 
 ALTER TABLE dbo.Advert
 ALTER COLUMN Content NVARCHAR(MAX) NULL;
+
+ALTER TABLE dbo.Advert
+ALTER COLUMN Price Decimal(10,2) NOT NULL;
