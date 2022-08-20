@@ -12,10 +12,12 @@
 
         public string NormalizedEmail { get; set; }
 
-        public string Fullname { get; set; }
-
         public string Gender { get; set; }
 
         public string PasswordHash { get; set; }
+
+        public string FirstName { get; set;}
+
+        public string LastName { get; set;}
     }
 }

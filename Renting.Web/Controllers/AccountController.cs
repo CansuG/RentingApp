@@ -32,7 +32,8 @@ namespace Renting.Web.Controllers
             {
                 Username = applicationUserCreate.Username,
                 Email = applicationUserCreate.Email,
-                Fullname = applicationUserCreate.Fullname,
+                FirstName = applicationUserCreate.FirstName,
+                LastName = applicationUserCreate.LastName,
                 Gender = applicationUserCreate.Gender,
             };
 
@@ -47,7 +48,8 @@ namespace Renting.Web.Controllers
                     ApplicationUserId = applicationUserIdentity.ApplicationUserId,
                     Username = applicationUserIdentity.Username,
                     Email = applicationUserIdentity.Email,
-                    Fullname = applicationUserIdentity.Fullname,
+                    FirstName = applicationUserIdentity.FirstName,
+                    LastName = applicationUserIdentity.LastName,
                     Gender = applicationUserIdentity.Gender,
                     Token = _tokenService.CreateToken(applicationUserIdentity)
                 };
@@ -77,7 +79,8 @@ namespace Renting.Web.Controllers
                         ApplicationUserId = applicationUserIdentity.ApplicationUserId,
                         Username = applicationUserIdentity.Username,
                         Email = applicationUserIdentity.Email,
-                        Fullname = applicationUserIdentity.Fullname,
+                        FirstName = applicationUserIdentity.FirstName,
+                        LastName = applicationUserIdentity.LastName,
                         Gender = applicationUserIdentity.Gender,
                         Token = _tokenService.CreateToken(applicationUserIdentity)
                     };

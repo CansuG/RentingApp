@@ -24,18 +24,20 @@ namespace Renting.Repository
             dataTable.Columns.Add("NormalizedUsername", typeof(string));
             dataTable.Columns.Add("Email", typeof(string));
             dataTable.Columns.Add("NormalizedEmail", typeof(string));
-            dataTable.Columns.Add("Fullname", typeof(string));
             dataTable.Columns.Add("Gender", typeof(string));
             dataTable.Columns.Add("PasswordHash", typeof(string));
+            dataTable.Columns.Add("FirstName", typeof(string));
+            dataTable.Columns.Add("LastName", typeof(string));
 
             dataTable.Rows.Add(
                 user.Username,
                 user.NormalizedUsername,
                 user.Email,
                 user.NormalizedEmail,
-                user.Fullname,
                 user.Gender,
-                user.PasswordHash
+                user.PasswordHash,
+                user.FirstName,
+                user.LastName
                 );
 
             using (var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))

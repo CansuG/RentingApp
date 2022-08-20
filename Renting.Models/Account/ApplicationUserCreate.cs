@@ -5,7 +5,9 @@ namespace Renting.Models.Account
     public class ApplicationUserCreate : ApplicationUserLogin
     {
 
-        public string Fullname { get; set; }
+        public string FirstName { get; set; }
+        
+        public string LastName { get; set; }
         
         public string Username { get; set; }
 
