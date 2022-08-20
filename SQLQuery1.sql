@@ -35,9 +35,10 @@ CREATE TYPE [dbo].[AccountType] AS TABLE
 	[NormalizedUsername] VARCHAR(20) NOT NULL,
 	[Email] VARCHAR(40) NOT NULL,
 	[NormalizedEmail] VARCHAR(40) NOT NULL,
-	[Fullname] VARCHAR(30) NULL,
 	[Gender] VARCHAR(20) NOT NULL,
-	[PasswordHash] NVARCHAR(MAX) NOT NULL
+	[PasswordHash] NVARCHAR(MAX) NOT NULL,
+	[FirstName] NVARCHAR(20) NOT NULL,
+	[LastName] NVARCHAR(20) NOT NULL
 )
 GO
 
@@ -89,9 +90,10 @@ AS
 		t1.NormalizedUsername,
 		t1.Email,
 		t1.NormalizedEmail,
-		t1.Fullname,
 		t1.Gender,
-		t1.PasswordHash
+		t1.PasswordHash,
+		t1.Firstname,
+		t1.LastName
 	FROM
 		Account t1
 	WHERE 
@@ -107,9 +109,10 @@ AS
 		t1.NormalizedUsername,
 		t1.Email,
 		t1.NormalizedEmail,
-		t1.Fullname,
 		t1.Gender,
-		t1.PasswordHash
+		t1.PasswordHash,
+		t1.Firstname,
+		t1.LastName
 	FROM
 		Account t1
 	WHERE 
@@ -124,17 +127,19 @@ AS
            [NormalizedUsername],
            [Email],
            [NormalizedEmail],
-           [Fullname],
 		   [Gender],
-           [PasswordHash])
+           [PasswordHash],
+		   [FirstName],
+		   [LastName])
 	SELECT 
 		[Username],
         [NormalizedUsername],
 		[Email],
         [NormalizedEmail],
-        [Fullname],
 		[Gender],
-        [PasswordHash]
+        [PasswordHash],
+		[FirstName],
+		[LastName]
 	FROM
 		@Account;
 
@@ -285,3 +290,12 @@ ALTER COLUMN Content NVARCHAR(MAX) NULL;
 
 ALTER TABLE dbo.Advert
 ALTER COLUMN Price Decimal(10,2) NOT NULL;
+
+ALTER TABLE dbo.Account
+DROP COLUMN Fullname;
+
+ALTER TABLE dbo.Account
+ADD FirstName NVARCHAR(20) NOT NULL;
+
+ALTER TABLE dbo.Account
+ADD LastName NVARCHAR(20) NOT NULL;
