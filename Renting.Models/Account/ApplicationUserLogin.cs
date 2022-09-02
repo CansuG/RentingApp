@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Renting.Models.Account
+namespace Renting.Models.Account;
+
+public class ApplicationUserLogin
 {
-    public class ApplicationUserLogin
-    {
-        
-        public string Email { get; set; }
-        public string Password { get; set; }
-    }
+    
+    public string Email { get; set; }
+    public string Password { get; set; }
 }

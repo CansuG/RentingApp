@@ -4,46 +4,77 @@ using Microsoft.AspNetCore.Mvc;
 using Renting.Models.Account;
 using Renting.Services;
 
-namespace Renting.Web.Controllers
+namespace Renting.Web.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class AccountController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AccountController : ControllerBase
+    private readonly ITokenService _tokenService;
+    private readonly UserManager<ApplicationUserIdentity> _userManager;
+    private readonly SignInManager<ApplicationUserIdentity> _signInManager;
+
+    public AccountController(
+        ITokenService tokenService,
+        UserManager<ApplicationUserIdentity> userManager,
+        SignInManager<ApplicationUserIdentity> signInManager)
     {
-        private readonly ITokenService _tokenService;
-        private readonly UserManager<ApplicationUserIdentity> _userManager;
-        private readonly SignInManager<ApplicationUserIdentity> _signInManager;
+        _tokenService = tokenService;
+        _userManager = userManager;
+        _signInManager = signInManager;
+    }
 
-        public AccountController(
-            ITokenService tokenService,
-            UserManager<ApplicationUserIdentity> userManager,
-            SignInManager<ApplicationUserIdentity> signInManager)
+    [HttpPost("register")]
+    public async Task<ActionResult<ApplicationUser>> Register(ApplicationUserCreate applicationUserCreate)
+    {
+
+        var applicationUserIdentity = new ApplicationUserIdentity
         {
-            _tokenService = tokenService;
-            _userManager = userManager;
-            _signInManager = signInManager;
-        }
+            Username = applicationUserCreate.Username,
+            Email = applicationUserCreate.Email,
+            Gender = applicationUserCreate.Gender,
+            FirstName = applicationUserCreate.FirstName,
+            LastName = applicationUserCreate.LastName,
+        };
 
-        [HttpPost("register")]
-        public async Task<ActionResult<ApplicationUser>> Register(ApplicationUserCreate applicationUserCreate)
+        var result = await _userManager.CreateAsync(applicationUserIdentity, applicationUserCreate.Password);
+
+        if (result.Succeeded)
         {
+            applicationUserIdentity = await _userManager.FindByNameAsync(applicationUserCreate.Username);
 
-            var applicationUserIdentity = new ApplicationUserIdentity
+            ApplicationUser user = new ApplicationUser()
             {
-                Username = applicationUserCreate.Username,
-                Email = applicationUserCreate.Email,
-                FirstName = applicationUserCreate.FirstName,
-                LastName = applicationUserCreate.LastName,
-                Gender = applicationUserCreate.Gender,
+                ApplicationUserId = applicationUserIdentity.ApplicationUserId,
+                Username = applicationUserIdentity.Username,
+                FirstName = applicationUserIdentity.FirstName,
+                LastName = applicationUserIdentity.LastName,
+                Email = applicationUserIdentity.Email,
+                Gender = applicationUserIdentity.Gender,
+                Token = _tokenService.CreateToken(applicationUserIdentity)
             };
 
-            var result = await _userManager.CreateAsync(applicationUserIdentity, applicationUserCreate.Password);
+            return user;
+        }
+
+        return BadRequest(result.Errors);
+    }
+
+    [HttpPost("login")]
+    public async Task<ActionResult<ApplicationUser>> Login(ApplicationUserLogin applicationUserLogin)
+    {
+        var applicationUserIdentity = await _userManager.FindByEmailAsync(applicationUserLogin.Email);
+
+        if (applicationUserIdentity != null)
+        {
+            var result = await _signInManager.CheckPasswordSignInAsync(
+                applicationUserIdentity,
+                applicationUserLogin.Password,
+                false);
 
             if (result.Succeeded)
             {
-                applicationUserIdentity = await _userManager.FindByEmailAsync(applicationUserCreate.Email);
-
-                ApplicationUser user = new ApplicationUser()
+                ApplicationUser applicationUser = new ApplicationUser()
                 {
                     ApplicationUserId = applicationUserIdentity.ApplicationUserId,
                     Username = applicationUserIdentity.Username,
@@ -54,43 +85,11 @@ namespace Renting.Web.Controllers
                     Token = _tokenService.CreateToken(applicationUserIdentity)
                 };
 
-                return user;
+                return Ok(applicationUser);
             }
 
-            return BadRequest(result.Errors);
         }
 
-        [HttpPost("login")]
-        public async Task<ActionResult<ApplicationUser>> Login(ApplicationUserLogin applicationUserLogin)
-        {
-            var applicationUserIdentity = await _userManager.FindByEmailAsync(applicationUserLogin.Email);
-
-            if (applicationUserIdentity != null)
-            {
-                var result = await _signInManager.CheckPasswordSignInAsync(
-                    applicationUserIdentity,
-                    applicationUserLogin.Password,
-                    false);
-
-                if (result.Succeeded)
-                {
-                    ApplicationUser applicationUser = new ApplicationUser()
-                    {
-                        ApplicationUserId = applicationUserIdentity.ApplicationUserId,
-                        Username = applicationUserIdentity.Username,
-                        Email = applicationUserIdentity.Email,
-                        FirstName = applicationUserIdentity.FirstName,
-                        LastName = applicationUserIdentity.LastName,
-                        Gender = applicationUserIdentity.Gender,
-                        Token = _tokenService.CreateToken(applicationUserIdentity)
-                    };
-
-                    return Ok(applicationUser);
-                }
-
-            }
-
-            return BadRequest("Invalid login attempt.");
-        }
+        return BadRequest("Invalid login attempt.");
     }
 }

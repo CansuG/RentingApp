@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Renting.Services
+namespace Renting.Services;
+
+public interface ITokenService
 {
-    public interface ITokenService
-    {
-        public string CreateToken(ApplicationUserIdentity user);
-    }
+    public string CreateToken(ApplicationUserIdentity user);
 }

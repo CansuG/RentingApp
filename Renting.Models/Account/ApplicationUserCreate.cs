@@ -1,16 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Renting.Models.Account
+namespace Renting.Models.Account;
+
+public class ApplicationUserCreate : ApplicationUserLogin
 {
-    public class ApplicationUserCreate : ApplicationUserLogin
-    {
 
-        public string FirstName { get; set; }
-        
-        public string LastName { get; set; }
-        
-        public string Username { get; set; }
+    public string? FirstName { get; set; }
+    
+    public string? LastName { get; set; }
+    
+    public string Username { get; set; }
 
-        public string Gender { get; set; }
-    }
+    public string Gender { get; set; }
 }

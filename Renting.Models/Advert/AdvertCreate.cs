@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Renting.Models.Advert
-{
+namespace Renting.Models.Advert;
+
     public class AdvertCreate
     {
         public int AdvertId { get; set; }
@@ -19,4 +19,3 @@ namespace Renting.Models.Advert
 		public string FloorArea { get; set; }
 
     }
-}

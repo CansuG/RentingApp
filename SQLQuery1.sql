@@ -7,9 +7,10 @@ CREATE TABLE Account (
 	NormalizedUsername NVARCHAR(20) NOT NULL,
 	Email VARCHAR(40) NOT NULL,
 	NormalizedEmail VARCHAR(40) NOT NULL,
-	Fullname NVARCHAR(30) NULL,
 	Gender VARCHAR(20) NOT NULL,
 	PasswordHash NVARCHAR(MAX) NOT NULL,
+	FirstName NVARCHAR(20) NULL,
+	LastName NVARCHAR(20) NULL,
 	PRIMARY KEY(ApplicationUserId)
 )
 
@@ -25,6 +26,12 @@ CREATE TABLE Advert(
 	PublishDate DATETIME NOT NULL DEFAULT GETDATE(),
 	UpdateDate DATETIME NOT NULL DEFAULT GETDATE(),
 	ActiveInd BIT NOT NULL DEFAULT CONVERT(BIT,1),
+	City NVARCHAR(30) NOT NULL,
+	District NVARCHAR(30) NOT NULL,
+	Neighbourhood NVARCHAR(30) NOT NULL,
+	Rooms NVARCHAR(30) NOT NULL,
+	Price Decimal(10,2) NOT NULL,
+	FloorArea INT NULL,
 	PRIMARY KEY(AdvertId),
 	FOREIGN KEY(ApplicationUserId) REFERENCES Account(ApplicationUserId)
 )
@@ -37,8 +44,8 @@ CREATE TYPE [dbo].[AccountType] AS TABLE
 	[NormalizedEmail] VARCHAR(40) NOT NULL,
 	[Gender] VARCHAR(20) NOT NULL,
 	[PasswordHash] NVARCHAR(MAX) NOT NULL,
-	[FirstName] NVARCHAR(20) NOT NULL,
-	[LastName] NVARCHAR(20) NOT NULL
+	[FirstName] NVARCHAR(20) NULL,
+	[LastName] NVARCHAR(20) NULL
 )
 GO
 
@@ -52,7 +59,7 @@ CREATE TYPE [dbo].[AdvertType] AS TABLE
 	[Neighbourhood] NVARCHAR(30) NOT NULL,
 	[Rooms] NVARCHAR(30) NOT NULL,
 	[Price] Decimal(10,2) NOT NULL,
-	[FloorArea] NVARCHAR(30) NOT NULL
+	[FloorArea] INT NULL
 )
 GO
 
@@ -267,35 +274,80 @@ AS
 		[AdvertId] = @AdvertId;
 GO
 
-ALTER TABLE dbo.Advert
-ADD City NVARCHAR(30) NOT NULL;
+CREATE PROCEDURE [dbo].[Advert_GetByCity]
+	@City NVARCHAR
+AS
+	SELECT 
+		[AdvertId],
+		[ApplicationUserId],
+		[Username],
+		[Title],
+		[Content],
+		[PublishDate],
+		[UpdateDate],
+		[City],
+		[District],
+		[Neighbourhood],
+		[Rooms],
+		[Price],
+		[FloorArea]
+	FROM 
+		[aggregate].[Advert] t1
+	WHERE 
+		t1.City = @City AND 
+		t1.[ActiveInd] = CONVERT(BIT, 1)
+GO
 
-ALTER TABLE dbo.Advert
-ADD District NVARCHAR(30) NOT NULL;
+CREATE PROCEDURE [dbo].[Advert_GetByDistrict]
+	@City NVARCHAR,
+	@District NVARCHAR
+AS
+	SELECT 
+		[AdvertId],
+		[ApplicationUserId],
+		[Username],
+		[Title],
+		[Content],
+		[PublishDate],
+		[UpdateDate],
+		[City],
+		[District],
+		[Neighbourhood],
+		[Rooms],
+		[Price],
+		[FloorArea]
+	FROM 
+		[aggregate].[Advert] t1
+	WHERE 
+		t1.City = @City AND 
+		t1.District = @District AND 
+		t1.[ActiveInd] = CONVERT(BIT, 1)
+GO
 
-ALTER TABLE dbo.Advert
-ADD Neighbourhood NVARCHAR(30) NOT NULL;
-
-ALTER TABLE dbo.Advert
-ADD Rooms NVARCHAR(30) NOT NULL;
-
-ALTER TABLE dbo.Advert
-ADD Price NVARCHAR(30) NOT NULL;
-
-ALTER TABLE dbo.Advert
-ADD FloorArea NVARCHAR(30) NOT NULL;
-
-ALTER TABLE dbo.Advert
-ALTER COLUMN Content NVARCHAR(MAX) NULL;
-
-ALTER TABLE dbo.Advert
-ALTER COLUMN Price Decimal(10,2) NOT NULL;
-
-ALTER TABLE dbo.Account
-DROP COLUMN Fullname;
-
-ALTER TABLE dbo.Account
-ADD FirstName NVARCHAR(20) NOT NULL;
-
-ALTER TABLE dbo.Account
-ADD LastName NVARCHAR(20) NOT NULL;
+CREATE PROCEDURE [dbo].[Advert_GetByNeighbourhood]
+	@City NVARCHAR,
+	@District NVARCHAR,
+	@Neighbourhood NVARCHAR
+AS
+	SELECT 
+		[AdvertId],
+		[ApplicationUserId],
+		[Username],
+		[Title],
+		[Content],
+		[PublishDate],
+		[UpdateDate],
+		[City],
+		[District],
+		[Neighbourhood],
+		[Rooms],
+		[Price],
+		[FloorArea]
+	FROM 
+		[aggregate].[Advert] t1
+	WHERE 
+		t1.City = @City AND 
+		t1.District = @District AND 
+		t1.Neighbourhood = @Neighbourhood AND 
+		t1.[ActiveInd] = CONVERT(BIT, 1)
+GO
