@@ -275,7 +275,7 @@ AS
 GO
 
 CREATE PROCEDURE [dbo].[Advert_GetByCity]
-	@City NVARCHAR
+	@City NVARCHAR(30)
 AS
 	SELECT 
 		[AdvertId],
@@ -299,8 +299,8 @@ AS
 GO
 
 CREATE PROCEDURE [dbo].[Advert_GetByDistrict]
-	@City NVARCHAR,
-	@District NVARCHAR
+	@City NVARCHAR(30) ,
+	@District NVARCHAR(30)
 AS
 	SELECT 
 		[AdvertId],
@@ -325,9 +325,9 @@ AS
 GO
 
 CREATE PROCEDURE [dbo].[Advert_GetByNeighbourhood]
-	@City NVARCHAR,
-	@District NVARCHAR,
-	@Neighbourhood NVARCHAR
+	@City NVARCHAR(30) ,
+	@District NVARCHAR(30),
+	@Neighbourhood NVARCHAR(30)
 AS
 	SELECT 
 		[AdvertId],

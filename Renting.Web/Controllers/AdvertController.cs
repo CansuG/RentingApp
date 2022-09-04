@@ -45,7 +45,7 @@ public class AdvertController : ControllerBase
         return Ok(adverts);
     }
 
-    [HttpGet("{city}")]
+    [HttpGet("filter/{city}")]
     public async Task<ActionResult<List<Advert>>> GetByCity(string city)
     {
         var adverts = await _advertRepository.GetByCityAsync(city);
@@ -53,7 +53,7 @@ public class AdvertController : ControllerBase
         return Ok(adverts);
     }
 
-    [HttpGet("{city}/{district}")]
+    [HttpGet("filter/{city}/{district}")]
     public async Task<ActionResult<List<Advert>>> GetByDistrict(string city, string district)
     {
         var adverts = await _advertRepository.GetByDistrictAsync(city, district);
@@ -61,7 +61,7 @@ public class AdvertController : ControllerBase
         return Ok(adverts);
     }
 
-    [HttpGet("{city}/{district}/{neighbourhood}")]
+    [HttpGet("filter/{city}/{district}/{neighbourhood}")]
     public async Task<ActionResult<List<Advert>>> GetByNeighbourhood(string city, string district, string neighbourhood)
     {
         var adverts = await _advertRepository.GetByNeighbourhoodAsync(city, district, neighbourhood);
