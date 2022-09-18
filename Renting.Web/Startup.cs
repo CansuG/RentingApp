@@ -34,6 +34,7 @@ public class Startup
               + "abcçdefgğhıijklmnoöprsştuüvyzxqwABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZXQW-._@+0123456789";
             opt.User.AllowedUserNameCharacters = allowed;
             opt.Password.RequireNonAlphanumeric = true;
+            opt.User.RequireUniqueEmail = true;
 
         })
             .AddUserStore<UserStore>()
