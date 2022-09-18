@@ -45,29 +45,14 @@ public class AdvertController : ControllerBase
         return Ok(adverts);
     }
 
-    [HttpGet("filter/{city}")]
-    public async Task<ActionResult<List<Advert>>> GetByCity(string city)
+    [HttpGet("filter")]
+    public async Task<ActionResult<Results<Advert>>> GetAdvertsWithFilters([FromQuery]Filtering filters)
     {
-        var adverts = await _advertRepository.GetByCityAsync(city);
+        var adverts = await _advertRepository.GetAdvertsWithFiltersAsync(filters);
 
         return Ok(adverts);
     }
 
-    [HttpGet("filter/{city}/{district}")]
-    public async Task<ActionResult<List<Advert>>> GetByDistrict(string city, string district)
-    {
-        var adverts = await _advertRepository.GetByDistrictAsync(city, district);
-
-        return Ok(adverts);
-    }
-
-    [HttpGet("filter/{city}/{district}/{neighbourhood}")]
-    public async Task<ActionResult<List<Advert>>> GetByNeighbourhood(string city, string district, string neighbourhood)
-    {
-        var adverts = await _advertRepository.GetByNeighbourhoodAsync(city, district, neighbourhood);
-
-        return Ok(adverts);
-    }
 
     [Authorize]
     [HttpDelete("{advertId}")]

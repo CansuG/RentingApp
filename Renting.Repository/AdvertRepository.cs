@@ -70,55 +70,35 @@ public class AdvertRepository : IAdvertRepository
         return advert;
     }
 
-    public async Task<List<Advert>> GetByCityAsync(string city)
+    public async Task<Results<Advert>> GetAdvertsWithFiltersAsync(Filtering filter)
     {
-        IEnumerable<Advert> adverts;
+        var results = new Results<Advert>();
 
         using (var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
         {
             await connection.OpenAsync();
 
-            adverts = await connection.QueryAsync<Advert>(
-                "Advert_GetByCity",
-                new { City = city },
-                commandType: CommandType.StoredProcedure);
+            using (var multi = await connection.QueryMultipleAsync("Advert_GetAdvertsWithFilters",
+                new
+                {
+                    City = filter.City,
+                    District = filter.District, 
+                    Neighbourhood = filter.Neighbourhood,
+                    Rooms = filter.Rooms,
+                    MinPrice = filter.MinPrice,
+                    MaxPrice = filter.MaxPrice,
+                    MinFloorArea = filter.MinFloorArea,
+                    MaxFloorArea = filter.MaxFloorArea
+                },
+                commandType: CommandType.StoredProcedure))
+            {
+                results.Items = multi.Read<Advert>();
+
+                results.TotalCount = multi.ReadFirst<int>();
+            }
         }
 
-        return adverts.ToList();
-    }
-
-    public async Task<List<Advert>> GetByDistrictAsync(string city, string district)
-    {
-        IEnumerable<Advert> adverts;
-
-        using (var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
-        {
-            await connection.OpenAsync();
-
-            adverts = await connection.QueryAsync<Advert>(
-                "Advert_GetByDistrict",
-                new { City = city, District = district },
-                commandType: CommandType.StoredProcedure);
-        }
-
-        return adverts.ToList();
-    }
-
-    public async Task<List<Advert>> GetByNeighbourhoodAsync(string city, string district, string neighbourhood)
-    {
-        IEnumerable<Advert> adverts;
-
-        using (var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
-        {
-            await connection.OpenAsync();
-
-            adverts = await connection.QueryAsync<Advert>(
-                "Advert_GetByNeighbourhood",
-                new { City = city, District = district, Neighbourhood = neighbourhood },
-                commandType: CommandType.StoredProcedure);
-        }
-
-        return adverts.ToList();
+        return results;
     }
 
     public async Task<Advert> UpsertAsync(AdvertCreate advertCreate, int applicationUserId)

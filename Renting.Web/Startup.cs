@@ -28,8 +28,14 @@ public class Startup
         services.AddScoped<IAccountRepository, AccountRepository>();
         services.AddScoped<IAdvertRepository, AdvertRepository>();
 
-        services.AddIdentityCore<ApplicationUserIdentity>(
-        )
+        services.AddIdentityCore<ApplicationUserIdentity>(opt =>
+        {
+            var allowed = opt.User.AllowedUserNameCharacters
+              + "abcçdefgğhıijklmnoöprsştuüvyzxqwABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZXQW-._@+0123456789";
+            opt.User.AllowedUserNameCharacters = allowed;
+            opt.Password.RequireNonAlphanumeric = true;
+
+        })
             .AddUserStore<UserStore>()
             .AddDefaultTokenProviders()
             .AddSignInManager<SignInManager<ApplicationUserIdentity>>();

@@ -15,11 +15,7 @@ public interface IAdvertRepository
 
     public Task<List<Advert>> GetAllByUserIdAsync(int applicationUserId);
     
-    public Task<List<Advert>> GetByCityAsync(string city);
-
-    public Task<List<Advert>> GetByDistrictAsync(string city, string district);
-
-    public Task<List<Advert>> GetByNeighbourhoodAsync(string city, string district, string neighbourhood);
+    public Task<Results<Advert>> GetAdvertsWithFiltersAsync(Filtering filters);
 
     public Task<int> DeleteAsync(int advertId);
 

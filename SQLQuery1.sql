@@ -274,34 +274,19 @@ AS
 		[AdvertId] = @AdvertId;
 GO
 
-CREATE PROCEDURE [dbo].[Advert_GetByCity]
-	@City NVARCHAR(30)
+CREATE PROCEDURE [dbo].[Advert_GetAdvertsWithFilters]
+	@City NVARCHAR(30)           =NULL,
+	@District NVARCHAR(30)       =NULL,
+	@Neighbourhood NVARCHAR(30)  =NULL,
+	@Rooms NVARCHAR(30)          =NULL,
+	@MinPrice Decimal(10,2)      =NULL,
+	@MaxPrice Decimal(10,2)      =NULL,
+	@MinFloorArea INT            =NULL,
+	@MaxFloorArea INT            =NULL
 AS
-	SELECT 
-		[AdvertId],
-		[ApplicationUserId],
-		[Username],
-		[Title],
-		[Content],
-		[PublishDate],
-		[UpdateDate],
-		[City],
-		[District],
-		[Neighbourhood],
-		[Rooms],
-		[Price],
-		[FloorArea]
-	FROM 
-		[aggregate].[Advert] t1
-	WHERE 
-		t1.City = @City AND 
-		t1.[ActiveInd] = CONVERT(BIT, 1)
-GO
+BEGIN
+	SET NOCOUNT ON;
 
-CREATE PROCEDURE [dbo].[Advert_GetByDistrict]
-	@City NVARCHAR(30) ,
-	@District NVARCHAR(30)
-AS
 	SELECT 
 		[AdvertId],
 		[ApplicationUserId],
@@ -318,36 +303,17 @@ AS
 		[FloorArea]
 	FROM 
 		[aggregate].[Advert] t1
-	WHERE 
-		t1.City = @City AND 
-		t1.District = @District AND 
+	WHERE
+		(ISNULL(@City, '') = '' OR t1.City = @City) AND
+		(ISNULL(@District, '') = '' OR t1.District = @District) AND
+		(ISNULL(@Neighbourhood, '') = '' OR t1.Neighbourhood = @Neighbourhood) AND
+		(ISNULL(@Rooms, '') = '' OR t1.Rooms = @Rooms) AND
+		t1.Price >= COALESCE(@MinPrice, t1.Price) AND
+		t1.Price <= COALESCE(@MaxPrice, t1.Price) AND
+		t1.FloorArea >= COALESCE(@MinFloorArea, t1.FloorArea) AND
+		t1.FloorArea <= COALESCE(@MaxFloorArea, t1.FloorArea) AND
 		t1.[ActiveInd] = CONVERT(BIT, 1)
-GO
+		
+END
 
-CREATE PROCEDURE [dbo].[Advert_GetByNeighbourhood]
-	@City NVARCHAR(30) ,
-	@District NVARCHAR(30),
-	@Neighbourhood NVARCHAR(30)
-AS
-	SELECT 
-		[AdvertId],
-		[ApplicationUserId],
-		[Username],
-		[Title],
-		[Content],
-		[PublishDate],
-		[UpdateDate],
-		[City],
-		[District],
-		[Neighbourhood],
-		[Rooms],
-		[Price],
-		[FloorArea]
-	FROM 
-		[aggregate].[Advert] t1
-	WHERE 
-		t1.City = @City AND 
-		t1.District = @District AND 
-		t1.Neighbourhood = @Neighbourhood AND 
-		t1.[ActiveInd] = CONVERT(BIT, 1)
-GO
+exec dbo.Advert_GetAdvertsWithFilters 
