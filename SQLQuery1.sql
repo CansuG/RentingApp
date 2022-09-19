@@ -282,7 +282,9 @@ CREATE PROCEDURE [dbo].[Advert_GetAdvertsWithFilters]
 	@MinPrice Decimal(10,2)      =NULL,
 	@MaxPrice Decimal(10,2)      =NULL,
 	@MinFloorArea INT            =NULL,
-	@MaxFloorArea INT            =NULL
+	@MaxFloorArea INT            =NULL,
+	@Offset INT,
+	@PageSize INT
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -313,7 +315,13 @@ BEGIN
 		t1.FloorArea >= COALESCE(@MinFloorArea, t1.FloorArea) AND
 		t1.FloorArea <= COALESCE(@MaxFloorArea, t1.FloorArea) AND
 		t1.[ActiveInd] = CONVERT(BIT, 1)
+	ORDER BY
+		t1.[AdvertId]
+	OFFSET @Offset ROWS
+	FETCH NEXT @PageSize ROWS ONLY;
 		
 END
 
-exec dbo.Advert_GetAdvertsWithFilters 
+exec dbo.Advert_GetAdvertsWithFilters
+
+select * from Advert

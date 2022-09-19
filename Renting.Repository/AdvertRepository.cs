@@ -70,6 +70,7 @@ public class AdvertRepository : IAdvertRepository
         return advert;
     }
 
+
     public async Task<List<Advert>> GetAdvertsWithFiltersAsync(Filtering filter)
     {
         IEnumerable<Advert> adverts;
@@ -88,7 +89,9 @@ public class AdvertRepository : IAdvertRepository
                     MinPrice = filter.MinPrice,
                     MaxPrice = filter.MaxPrice,
                     MinFloorArea = filter.MinFloorArea,
-                    MaxFloorArea = filter.MaxFloorArea
+                    MaxFloorArea = filter.MaxFloorArea,
+                    Offset = (filter.Page - 1) * filter.PageSize,
+                    PageSize = filter.PageSize
                 },
                 commandType: CommandType.StoredProcedure);
         }
