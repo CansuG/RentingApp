@@ -46,9 +46,9 @@ public class AdvertController : ControllerBase
     }
 
     [HttpGet("filter")]
-    public async Task<ActionResult<Results<Advert>>> GetAdvertsWithFilters([FromQuery]Filtering filters)
+    public async Task<ActionResult<List<Advert>>> GetAdvertsWithFilters([FromBody]Filtering filter)
     {
-        var adverts = await _advertRepository.GetAdvertsWithFiltersAsync(filters);
+        var adverts = await _advertRepository.GetAdvertsWithFiltersAsync(filter);
 
         return Ok(adverts);
     }

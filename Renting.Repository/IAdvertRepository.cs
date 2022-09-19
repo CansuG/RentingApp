@@ -15,7 +15,7 @@ public interface IAdvertRepository
 
     public Task<List<Advert>> GetAllByUserIdAsync(int applicationUserId);
     
-    public Task<Results<Advert>> GetAdvertsWithFiltersAsync(Filtering filters);
+    public Task<List<Advert>> GetAdvertsWithFiltersAsync(Filtering filters);
 
     public Task<int> DeleteAsync(int advertId);
 

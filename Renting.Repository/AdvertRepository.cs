@@ -70,19 +70,19 @@ public class AdvertRepository : IAdvertRepository
         return advert;
     }
 
-    public async Task<Results<Advert>> GetAdvertsWithFiltersAsync(Filtering filter)
+    public async Task<List<Advert>> GetAdvertsWithFiltersAsync(Filtering filter)
     {
-        var results = new Results<Advert>();
+        IEnumerable<Advert> adverts;
 
         using (var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
         {
             await connection.OpenAsync();
 
-            using (var multi = await connection.QueryMultipleAsync("Advert_GetAdvertsWithFilters",
-                new
-                {
+            adverts = await connection.QueryAsync<Advert>(
+                "Advert_GetAdvertsWithFilters",
+                new {
                     City = filter.City,
-                    District = filter.District, 
+                    District = filter.District,
                     Neighbourhood = filter.Neighbourhood,
                     Rooms = filter.Rooms,
                     MinPrice = filter.MinPrice,
@@ -90,15 +90,10 @@ public class AdvertRepository : IAdvertRepository
                     MinFloorArea = filter.MinFloorArea,
                     MaxFloorArea = filter.MaxFloorArea
                 },
-                commandType: CommandType.StoredProcedure))
-            {
-                results.Items = multi.Read<Advert>();
-
-                results.TotalCount = multi.ReadFirst<int>();
-            }
+                commandType: CommandType.StoredProcedure);
         }
 
-        return results;
+        return adverts.ToList();
     }
 
     public async Task<Advert> UpsertAsync(AdvertCreate advertCreate, int applicationUserId)
