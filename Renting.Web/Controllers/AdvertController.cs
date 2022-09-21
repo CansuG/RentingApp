@@ -20,7 +20,7 @@ public class AdvertController : ControllerBase
 
     [Authorize]
     [HttpPost]
-    public async Task<ActionResult<Advert>> Create(AdvertCreate advertCreate)
+    public async Task<ActionResult<Advert>> Create([FromBody]AdvertCreate advertCreate)
     {
         int applicationUserId = int.Parse(User.Claims.First(i => i.Type == JwtRegisteredClaimNames.NameId).Value);
 
@@ -48,6 +48,15 @@ public class AdvertController : ControllerBase
     [HttpPost("filter")]
     public async Task<ActionResult<List<Advert>>> GetAdvertsWithFilters([FromBody]Filtering filter)
     {
+        if(!filter.District.Equals("")  && filter.City.Equals(""))
+        {
+            return BadRequest("You cannot select District, and Neighbourhood without selecting City. ");
+        }
+        else if ((!filter.Neighbourhood.Equals("") && filter.District.Equals("") && filter.City.Equals("")))
+        {
+            return BadRequest("You cannot select Neighbourhood without selecting City, and District.");
+        }
+
         var adverts = await _advertRepository.GetAdvertsWithFiltersAsync(filter);
 
         return Ok(adverts);
