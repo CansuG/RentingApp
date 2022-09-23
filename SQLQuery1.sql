@@ -329,4 +329,4 @@ BEGIN
 		
 END
 
-select * from Advert
+

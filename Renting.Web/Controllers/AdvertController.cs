@@ -52,12 +52,12 @@ public class AdvertController : ControllerBase
         {
             return BadRequest("You cannot select District, and Neighbourhood without selecting City.");
         }
-        else if ((!filter.Neighbourhood.Equals("") && filter.District.Equals("") && filter.City.Equals("")))
+        else if (!filter.Neighbourhood.Equals("") && filter.District.Equals("") && filter.City.Equals(""))
         {
             return BadRequest("You cannot select Neighbourhood without selecting City, and District.");
         }
-        else if( filter.City.Equals("") && (!filter.Rooms.Equals("") || !filter.MaxPrice.Equals("") || 
-            !filter.MinPrice.Equals("") || !filter.MaxFloorArea.Equals("") || !filter.MinFloorArea.Equals("") ||
+        else if( filter.City.Equals("") && (!filter.Rooms.Equals("") || !filter.MaxPrice.Equals(null) || 
+            !filter.MinPrice.Equals(null) || !filter.MaxFloorArea.Equals(null) || !filter.MinFloorArea.Equals(null) ||
             !filter.OrderByWith.Equals("")) )
         {
             return BadRequest("You cannot select this field before you select City.");
