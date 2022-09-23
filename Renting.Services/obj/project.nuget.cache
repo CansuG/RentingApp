@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "BkeXXvp+XoAuewnudna7wqIEQGeUfDsFHPXMkTcSrTKW36lCCKGg3+rh5gFlpvjTuzPR0oiTiXTA2wb9Ps9Yxg==",
+  "dgSpecHash": "gtIASWSJ1i0LqqUPeEkWuIReaMaZeeM7rqEDz6BMcmeVa6t7Q/m0XSM63ysfw0rsjZ7Eoniu/KHmlC5UwjFa5w==",
   "success": true,
   "projectFilePath": "C:\\Users\\MONSTER\\Documents\\Projects\\Renting\\Renting.Services\\Renting.Services.csproj",
   "expectedPackageFiles": [
@@ -11,6 +11,7 @@
     "C:\\Users\\MONSTER\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\6.22.0\\microsoft.identitymodel.jsonwebtokens.6.22.0.nupkg.sha512",
     "C:\\Users\\MONSTER\\.nuget\\packages\\microsoft.identitymodel.logging\\6.22.0\\microsoft.identitymodel.logging.6.22.0.nupkg.sha512",
     "C:\\Users\\MONSTER\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.22.0\\microsoft.identitymodel.tokens.6.22.0.nupkg.sha512",
+    "C:\\Users\\MONSTER\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\MONSTER\\.nuget\\packages\\system.identitymodel.tokens.jwt\\6.22.0\\system.identitymodel.tokens.jwt.6.22.0.nupkg.sha512",
     "C:\\Users\\MONSTER\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
     "C:\\Users\\MONSTER\\.nuget\\packages\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512"

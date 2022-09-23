@@ -283,6 +283,8 @@ CREATE PROCEDURE [dbo].[Advert_GetAdvertsWithFilters]
 	@MaxPrice Decimal(10,2)      =NULL,
 	@MinFloorArea INT            =NULL,
 	@MaxFloorArea INT            =NULL,
+	@OrderByWith NVARCHAR(30)    =NULL,
+	@AscOrDesc NVARCHAR(30)      =NULL,
 	@Offset INT,
 	@PageSize INT
 AS
@@ -316,12 +318,15 @@ BEGIN
 		t1.FloorArea <= COALESCE(@MaxFloorArea, t1.FloorArea) AND
 		t1.[ActiveInd] = CONVERT(BIT, 1)
 	ORDER BY
-		t1.[AdvertId]
-	OFFSET @Offset ROWS
-	FETCH NEXT @PageSize ROWS ONLY;
+		ORDER BY
+		CASE @OrderByWith WHEN 'Price ASC' THEN CAST(t1.Price AS INT) END ASC,
+		CASE WHEN @OrderByWith = 'Price DESC' THEN CAST(t1.Price AS INT) END DESC,
+		CASE WHEN @OrderByWith = 'Date ASC' THEN t1.PublishDate END ASC,
+		CASE WHEN @OrderByWith = 'Date DESC' THEN t1.PublishDate END DESC
+
+		OFFSET @Offset ROWS
+		FETCH NEXT @PageSize ROWS ONLY;
 		
 END
-
-exec dbo.Advert_GetAdvertsWithFilters
 
 select * from Advert

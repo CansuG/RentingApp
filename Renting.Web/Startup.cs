@@ -5,6 +5,7 @@ using Renting.Identity;
 using Renting.Models.Account;
 using Renting.Repository;
 using Renting.Services;
+using Renting.Web.Extensions;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
@@ -58,14 +59,25 @@ public class Startup
                     options.SaveToken = true;
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = Configuration["Jwt:Issuer"],
                         ValidAudience = Configuration["Jwt:Issuer"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
                         ClockSkew = TimeSpan.Zero
+                    };
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnAuthenticationFailed = context =>
+                        {
+                            if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                            {
+                                context.Response.Headers.Add("Token-Expired", "true");
+                            }
+                            return Task.CompletedTask;
+                        }
                     };
                 }
             );
@@ -84,6 +96,8 @@ public class Startup
         {
             app.UseExceptionHandler("/Error");
         }
+
+        app.ConfigureExceptionHandler();
 
         app.UseStaticFiles();
 

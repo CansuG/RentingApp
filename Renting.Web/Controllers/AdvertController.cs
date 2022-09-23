@@ -50,11 +50,17 @@ public class AdvertController : ControllerBase
     {
         if(!filter.District.Equals("")  && filter.City.Equals(""))
         {
-            return BadRequest("You cannot select District, and Neighbourhood without selecting City. ");
+            return BadRequest("You cannot select District, and Neighbourhood without selecting City.");
         }
         else if ((!filter.Neighbourhood.Equals("") && filter.District.Equals("") && filter.City.Equals("")))
         {
             return BadRequest("You cannot select Neighbourhood without selecting City, and District.");
+        }
+        else if( filter.City.Equals("") && (!filter.Rooms.Equals("") || !filter.MaxPrice.Equals("") || 
+            !filter.MinPrice.Equals("") || !filter.MaxFloorArea.Equals("") || !filter.MinFloorArea.Equals("") ||
+            !filter.OrderByWith.Equals("")) )
+        {
+            return BadRequest("You cannot select this field before you select City.");
         }
 
         var adverts = await _advertRepository.GetAdvertsWithFiltersAsync(filter);

@@ -51,3 +51,4 @@ C:\Users\MONSTER\Documents\Projects\Renting\Renting.Web\bin\Debug\net6.0\Renting
 C:\Users\MONSTER\Documents\Projects\Renting\Renting.Web\bin\Debug\net6.0\Renting.Repository.pdb
 C:\Users\MONSTER\Documents\Projects\Renting\Renting.Web\bin\Debug\net6.0\Renting.Services.pdb
 C:\Users\MONSTER\Documents\Projects\Renting\Renting.Web\bin\Debug\net6.0\Renting.Models.pdb
+C:\Users\MONSTER\Documents\Projects\Renting\Renting.Web\bin\Debug\net6.0\Newtonsoft.Json.dll

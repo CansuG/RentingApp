@@ -17,7 +17,8 @@ namespace Renting.Models.Advert
 		public int? MinFloorArea { get; set; }
 		public int? MaxFloorArea { get; set; }
 		public int Page { get; set; } 
-		public int PageSize { get; set; } 
+		public int PageSize { get; set; }
+        public string? OrderByWith { get; set; }
 
-	}
+    }
 }
