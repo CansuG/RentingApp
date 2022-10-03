@@ -57,8 +57,7 @@ public class AdvertController : ControllerBase
             return BadRequest("You cannot select Neighbourhood without selecting City, and District.");
         }
         else if( filter.City.Equals("") && (!filter.Rooms.Equals("") || !filter.MaxPrice.Equals(null) || 
-            !filter.MinPrice.Equals(null) || !filter.MaxFloorArea.Equals(null) || !filter.MinFloorArea.Equals(null) ||
-            !filter.OrderByWith.Equals("")) )
+            !filter.MinPrice.Equals(null) || !filter.MaxFloorArea.Equals(null) || !filter.MinFloorArea.Equals(null) ) )
         {
             return BadRequest("You cannot select this field before you select City.");
         }

@@ -311,7 +311,7 @@ BEGIN
 		(ISNULL(@City, '') = '' OR t1.City = @City) AND
 		(ISNULL(@District, '') = '' OR t1.District = @District) AND
 		(ISNULL(@Neighbourhood, '') = '' OR t1.Neighbourhood = @Neighbourhood) AND
-		(ISNULL(@Rooms, '') = '' OR t1.Rooms = @Rooms) AND
+		(ISNULL(@Rooms, '') = '' OR t1.Price IN (SELECT * FROM STRING_SPLIT(@Rooms, ','))) AND
 		t1.Price >= COALESCE(@MinPrice, t1.Price) AND
 		t1.Price <= COALESCE(@MaxPrice, t1.Price) AND
 		t1.FloorArea >= COALESCE(@MinFloorArea, t1.FloorArea) AND
@@ -322,7 +322,8 @@ BEGIN
 		CASE @OrderByWith WHEN 'Price ASC' THEN CAST(t1.Price AS INT) END ASC,
 		CASE WHEN @OrderByWith = 'Price DESC' THEN CAST(t1.Price AS INT) END DESC,
 		CASE WHEN @OrderByWith = 'Date ASC' THEN t1.PublishDate END ASC,
-		CASE WHEN @OrderByWith = 'Date DESC' THEN t1.PublishDate END DESC
+		CASE WHEN @OrderByWith = 'Date DESC' THEN t1.PublishDate 
+			 ELSE t1.PublishDate END DESC
 
 		OFFSET @Offset ROWS
 		FETCH NEXT @PageSize ROWS ONLY;
