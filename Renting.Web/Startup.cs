@@ -25,9 +25,11 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IPhotoService, PhotoService>();
 
         services.AddScoped<IAccountRepository, AccountRepository>();
         services.AddScoped<IAdvertRepository, AdvertRepository>();
+        services.AddScoped<IPhotoRepository, PhotoRepository>();
 
         services.AddIdentityCore<ApplicationUserIdentity>(opt =>
         {
