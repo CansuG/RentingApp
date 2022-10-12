@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gtIASWSJ1i0LqqUPeEkWuIReaMaZeeM7rqEDz6BMcmeVa6t7Q/m0XSM63ysfw0rsjZ7Eoniu/KHmlC5UwjFa5w==",
+  "dgSpecHash": "45Um5TMg3pCyokV9bSCrFMih8EJfRSRXdKxP2SUPk7zkmH+QAp/VGqV5LRs5dBF98N39UeONaYGtZBrQoMhH+w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\MONSTER\\Documents\\Projects\\Renting\\Renting.Services\\Renting.Services.csproj",
+  "projectFilePath": "C:\\Users\\MONSTER\\source\\repos\\RentingApp\\Renting.Services\\Renting.Services.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\MONSTER\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\MONSTER\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\6.0.0\\microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512",

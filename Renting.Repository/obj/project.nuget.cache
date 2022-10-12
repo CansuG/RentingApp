@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rHADAUFNcFlaae6L52gOTlFWBwFmKhjGPGZJH/VtNj9istitwcgexC1f84VOFVBRM1X+8MD/FIGKqjFOKP7R2A==",
+  "dgSpecHash": "ugz7aXDYw/f1jVsDIqXB3IOTuNt6FHdJywwOYncEdue0Br9nbYCuwR1V9qYE1HqtrminN3PVEehP4X0BAEubiw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\MONSTER\\Documents\\Projects\\Renting\\Renting.Repository\\Renting.Repository.csproj",
+  "projectFilePath": "C:\\Users\\MONSTER\\source\\repos\\RentingApp\\Renting.Repository\\Renting.Repository.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\MONSTER\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\MONSTER\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.8\\microsoft.aspnetcore.cryptography.internal.6.0.8.nupkg.sha512",
