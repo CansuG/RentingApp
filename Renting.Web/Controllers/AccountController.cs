@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Renting.Models.Account;
+using Renting.Models.Advert;
+using Renting.Repository;
 using Renting.Services;
 
 namespace Renting.Web.Controllers;
@@ -13,6 +15,7 @@ public class AccountController : ControllerBase
     private readonly ITokenService _tokenService;
     private readonly UserManager<ApplicationUserIdentity> _userManager;
     private readonly SignInManager<ApplicationUserIdentity> _signInManager;
+    private readonly IAccountRepository _accountRepository;
 
     public AccountController(
         ITokenService tokenService,
@@ -91,5 +94,13 @@ public class AccountController : ControllerBase
         }
 
         return BadRequest("Invalid login attempt.");
+    }
+
+    [HttpGet("View Profile")]
+    public async Task<ActionResult<ApplicationUserIdentity>> Get(int applicationUserId, CancellationToken cancellationToken)
+    {
+        var account = await _accountRepository.GetByUserId(applicationUserId, cancellationToken);
+
+        return Ok(account);
     }
 }
