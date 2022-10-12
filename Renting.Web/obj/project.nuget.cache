@@ -1,17 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "5RBGWi3xuJAYwruvFUxwSuwj305luNaqbzLsZ1OJwPEvOpIztKAWwzXYFsazRvJPebKau2qe4yXfrOCuK/yhZA==",
+  "dgSpecHash": "Xmp/vaF4Z34uRhXsNx5iOXua4t3m0EjcdOOH/yAP40p5mIAXHEw+DAgsOsq7HR/YDNkIPdWPmBEciF6VwIe/RA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\MONSTER\\Source\\Repos\\RentingApp\\Renting.Web\\Renting.Web.csproj",
+  "projectFilePath": "C:\\Users\\MONSTER\\Documents\\Projects\\Renting\\Renting.Web\\Renting.Web.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\MONSTER\\.nuget\\packages\\cloudinarydotnet\\1.20.0\\cloudinarydotnet.1.20.0.nupkg.sha512",
     "C:\\Users\\MONSTER\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\MONSTER\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.8\\microsoft.aspnetcore.authentication.jwtbearer.6.0.8.nupkg.sha512",
     "C:\\Users\\MONSTER\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.8\\microsoft.aspnetcore.cryptography.internal.6.0.8.nupkg.sha512",
     "C:\\Users\\MONSTER\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.8\\microsoft.aspnetcore.cryptography.keyderivation.6.0.8.nupkg.sha512",
-    "C:\\Users\\MONSTER\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
-    "C:\\Users\\MONSTER\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
-    "C:\\Users\\MONSTER\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\MONSTER\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\MONSTER\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\6.0.0\\microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\MONSTER\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\6.0.0\\microsoft.extensions.dependencyinjection.6.0.0.nupkg.sha512",
@@ -40,8 +36,7 @@
     "C:\\Users\\MONSTER\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
     "C:\\Users\\MONSTER\\.nuget\\packages\\system.security.accesscontrol\\4.7.0\\system.security.accesscontrol.4.7.0.nupkg.sha512",
     "C:\\Users\\MONSTER\\.nuget\\packages\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512",
-    "C:\\Users\\MONSTER\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512",
-    "C:\\Users\\MONSTER\\.nuget\\packages\\system.text.encodings.web\\4.5.0\\system.text.encodings.web.4.5.0.nupkg.sha512"
+    "C:\\Users\\MONSTER\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512"
   ],
   "logs": []
 }

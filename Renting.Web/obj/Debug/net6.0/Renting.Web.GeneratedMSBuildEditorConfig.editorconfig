@@ -8,37 +8,72 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Renting.Web
 build_property.RootNamespace = Renting.Web
-build_property.ProjectDir = C:\Users\MONSTER\Source\Repos\RentingApp\Renting.Web\
+<<<<<<< HEAD
+build_property.ProjectDir = c:\Users\MONSTER\Documents\Projects\Renting\RentingApp\Renting.Web\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\MONSTER\Source\Repos\RentingApp\Renting.Web
+build_property.MSBuildProjectDirectory = c:\Users\MONSTER\Documents\Projects\Renting\RentingApp\Renting.Web
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/MONSTER/Source/Repos/RentingApp/Renting.Web/Pages/Error.cshtml]
+[c:/Users/MONSTER/Documents/Projects/Renting/RentingApp/Renting.Web/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/MONSTER/Source/Repos/RentingApp/Renting.Web/Pages/Index.cshtml]
+[c:/Users/MONSTER/Documents/Projects/Renting/RentingApp/Renting.Web/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/MONSTER/Source/Repos/RentingApp/Renting.Web/Pages/Privacy.cshtml]
+[c:/Users/MONSTER/Documents/Projects/Renting/RentingApp/Renting.Web/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/MONSTER/Source/Repos/RentingApp/Renting.Web/Pages/Shared/_ValidationScriptsPartial.cshtml]
+[c:/Users/MONSTER/Documents/Projects/Renting/RentingApp/Renting.Web/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/MONSTER/Source/Repos/RentingApp/Renting.Web/Pages/_ViewImports.cshtml]
+[c:/Users/MONSTER/Documents/Projects/Renting/RentingApp/Renting.Web/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/MONSTER/Source/Repos/RentingApp/Renting.Web/Pages/_ViewStart.cshtml]
+[c:/Users/MONSTER/Documents/Projects/Renting/RentingApp/Renting.Web/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/MONSTER/Source/Repos/RentingApp/Renting.Web/Pages/Shared/_Layout.cshtml]
+[c:/Users/MONSTER/Documents/Projects/Renting/RentingApp/Renting.Web/Pages/Shared/_Layout.cshtml]
+=======
+build_property.ProjectDir = c:\Users\MONSTER\Documents\GitHub\RentingApp\Renting.Web\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = c:\Users\MONSTER\Documents\GitHub\RentingApp\Renting.Web
+build_property._RazorSourceGeneratorDebug = 
+
+[c:/Users/MONSTER/Documents/GitHub/RentingApp/Renting.Web/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/MONSTER/Documents/GitHub/RentingApp/Renting.Web/Pages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/MONSTER/Documents/GitHub/RentingApp/Renting.Web/Pages/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/MONSTER/Documents/GitHub/RentingApp/Renting.Web/Pages/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/MONSTER/Documents/GitHub/RentingApp/Renting.Web/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/MONSTER/Documents/GitHub/RentingApp/Renting.Web/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/MONSTER/Documents/GitHub/RentingApp/Renting.Web/Pages/Shared/_Layout.cshtml]
+>>>>>>> parent of ae858bd (photo added, advert and account has no problem. photo deosnt work)
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-u3at5l15is
