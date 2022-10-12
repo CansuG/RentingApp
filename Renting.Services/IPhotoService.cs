@@ -6,12 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Renting.Services
+namespace Renting.Services;
+public interface IPhotoService
 {
-    public interface IPhotoService
-    {
-        public Task<ImageUploadResult> AddPhotosAsync(IFormFile file);
+    public Task<ImageUploadResult> AddPhotosAsync(IFormFile file);
 
-        public Task<DeletionResult> DeletePhotoAsync(string publicId);
-    }
+    public Task<DeletionResult> DeletePhotoAsync(string publicId);
 }
