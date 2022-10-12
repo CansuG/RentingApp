@@ -283,10 +283,10 @@ CREATE PROCEDURE [dbo].[Advert_GetAdvertsWithFilters]
 	@MaxPrice Decimal(10,2)      =NULL,
 	@MinFloorArea INT            =NULL,
 	@MaxFloorArea INT            =NULL,
-	@OrderByWith NVARCHAR(30)    =NULL,
-	@AscOrDesc NVARCHAR(30)      =NULL,
 	@Offset INT,
-	@PageSize INT
+	@PageSize INT,
+	@OrderByWith NVARCHAR(30)    =NULL,
+	@ApplicationUserId INT       =NULL
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -311,14 +311,14 @@ BEGIN
 		(ISNULL(@City, '') = '' OR t1.City = @City) AND
 		(ISNULL(@District, '') = '' OR t1.District = @District) AND
 		(ISNULL(@Neighbourhood, '') = '' OR t1.Neighbourhood = @Neighbourhood) AND
-		(ISNULL(@Rooms, '') = '' OR t1.Price IN (SELECT * FROM STRING_SPLIT(@Rooms, ','))) AND
+		(ISNULL(@Rooms, '') = '' OR t1.Rooms IN (SELECT * FROM STRING_SPLIT(@Rooms,' '))) AND
 		t1.Price >= COALESCE(@MinPrice, t1.Price) AND
 		t1.Price <= COALESCE(@MaxPrice, t1.Price) AND
 		t1.FloorArea >= COALESCE(@MinFloorArea, t1.FloorArea) AND
 		t1.FloorArea <= COALESCE(@MaxFloorArea, t1.FloorArea) AND
+		(ISNULL(@ApplicationUserId, '') = '' OR t1.ApplicationUserId = @ApplicationUserId) AND
 		t1.[ActiveInd] = CONVERT(BIT, 1)
 	ORDER BY
-		ORDER BY
 		CASE @OrderByWith WHEN 'Price ASC' THEN CAST(t1.Price AS INT) END ASC,
 		CASE WHEN @OrderByWith = 'Price DESC' THEN CAST(t1.Price AS INT) END DESC,
 		CASE WHEN @OrderByWith = 'Date ASC' THEN t1.PublishDate END ASC,

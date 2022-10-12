@@ -19,6 +19,7 @@ namespace Renting.Models.Advert
 		public int Page { get; set; } 
 		public int PageSize { get; set; }
         public string? OrderByWith { get; set; }
+        public int? ApplicationUserId { get; set; }
 
     }
 }
