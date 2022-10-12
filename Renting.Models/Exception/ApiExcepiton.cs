@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Renting.Models.Excepiton
+namespace Renting.Models.Exception
 {
     public class ApiException
     {

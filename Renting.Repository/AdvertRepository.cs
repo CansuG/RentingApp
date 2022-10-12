@@ -92,7 +92,8 @@ public class AdvertRepository : IAdvertRepository
                     MaxFloorArea = filter.MaxFloorArea,
                     Offset = (filter.Page - 1) * filter.PageSize,
                     PageSize = filter.PageSize,
-                    OrderByWith = filter.OrderByWith
+                    OrderByWith = filter.OrderByWith,
+                    ApplicationUserId= filter.ApplicationUserId
                 },
                 commandType: CommandType.StoredProcedure);
         }
