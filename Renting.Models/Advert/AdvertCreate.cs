@@ -17,6 +17,5 @@ namespace Renting.Models.Advert;
 		public string Rooms { get; set; }
 		public decimal Price { get; set; }
 		public string FloorArea { get; set; }
-		public int? PhotoId { get; set; }
 
-}
+    }

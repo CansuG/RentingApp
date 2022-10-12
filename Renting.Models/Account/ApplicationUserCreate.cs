@@ -12,6 +12,4 @@ public class ApplicationUserCreate : ApplicationUserLogin
     public string Username { get; set; }
 
     public string Gender { get; set; }
-
-    public int? PhotoId { get; set; }
 }
