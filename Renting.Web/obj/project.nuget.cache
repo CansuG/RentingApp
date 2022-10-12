@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Xmp/vaF4Z34uRhXsNx5iOXua4t3m0EjcdOOH/yAP40p5mIAXHEw+DAgsOsq7HR/YDNkIPdWPmBEciF6VwIe/RA==",
+  "dgSpecHash": "dbEK1o10nAorODnJLfJmAZ7oOB3Ni6aGyh39Leq96hODWLEa2ibFAfi7Fp/ketBO1LBUFlFCFBbj8wP7QxlWUQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\MONSTER\\Documents\\Projects\\Renting\\Renting.Web\\Renting.Web.csproj",
+  "projectFilePath": "C:\\Users\\MONSTER\\source\\repos\\RentingApp\\Renting.Web\\Renting.Web.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\MONSTER\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\MONSTER\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.8\\microsoft.aspnetcore.authentication.jwtbearer.6.0.8.nupkg.sha512",

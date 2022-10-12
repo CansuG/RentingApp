@@ -503,11 +503,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\MONSTER\\Documents\\Projects\\Renting\\Renting.Services\\Renting.Services.csproj",
+      "projectUniqueName": "C:\\Users\\MONSTER\\source\\repos\\RentingApp\\Renting.Services\\Renting.Services.csproj",
       "projectName": "Renting.Services",
-      "projectPath": "C:\\Users\\MONSTER\\Documents\\Projects\\Renting\\Renting.Services\\Renting.Services.csproj",
+      "projectPath": "C:\\Users\\MONSTER\\source\\repos\\RentingApp\\Renting.Services\\Renting.Services.csproj",
       "packagesPath": "C:\\Users\\MONSTER\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\MONSTER\\Documents\\Projects\\Renting\\Renting.Services\\obj\\",
+      "outputPath": "C:\\Users\\MONSTER\\source\\repos\\RentingApp\\Renting.Services\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
@@ -528,8 +528,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\MONSTER\\Documents\\Projects\\Renting\\Renting.Models\\Renting.Models.csproj": {
-              "projectPath": "C:\\Users\\MONSTER\\Documents\\Projects\\Renting\\Renting.Models\\Renting.Models.csproj"
+            "C:\\Users\\MONSTER\\source\\repos\\RentingApp\\Renting.Models\\Renting.Models.csproj": {
+              "projectPath": "C:\\Users\\MONSTER\\source\\repos\\RentingApp\\Renting.Models\\Renting.Models.csproj"
             }
           }
         }
