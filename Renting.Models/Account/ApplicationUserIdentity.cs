@@ -19,4 +19,6 @@ public class ApplicationUserIdentity
     public string? FirstName { get; set;}
 
     public string? LastName { get; set;}
+
+    public int? PhotoId { get; set; }
 }

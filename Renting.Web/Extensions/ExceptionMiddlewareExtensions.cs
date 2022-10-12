@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using System.Net;
 using Microsoft.AspNetCore.Http;
-using Renting.Models.Excepiton;
+using Renting.Models.Settings;
 
 namespace Renting.Web.Extensions
 {

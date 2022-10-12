@@ -8,6 +8,7 @@ public class ApplicationUser
     public string? LastName { get; set;}
     public string Email { get; set; }
     public string Gender { get; set; }
+    public int? PhotoId { get; set; }
     public string Token { get; set; }
 
 }
