@@ -24,6 +24,7 @@ public class AccountController : ControllerBase
         _signInManager = signInManager;
     }
 
+
     [HttpPost("register")]
     public async Task<ActionResult<ApplicationUser>> Register(ApplicationUserCreate applicationUserCreate)
     {

@@ -115,9 +115,9 @@ public class UserStore :
         return Task.FromResult(0);
     }
 
-    public Task<IdentityResult> UpdateAsync(ApplicationUserIdentity user, CancellationToken cancellationToken)
+    public async Task<IdentityResult> UpdateAsync(ApplicationUserIdentity user, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await _accountRepository.UpdateAsync(user, cancellationToken);
     }
 
     public void Dispose()
