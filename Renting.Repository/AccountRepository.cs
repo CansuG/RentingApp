@@ -93,6 +93,24 @@ public class AccountRepository : IAccountRepository
         return applicationUser;
     }
 
+    public async Task<ApplicationUserIdentity> GetByUserId(int applicationUserId, CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        ApplicationUserIdentity applicationUser;
+
+        using (var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
+        {
+            await connection.OpenAsync(cancellationToken);
+
+            applicationUser = await connection.QuerySingleOrDefaultAsync<ApplicationUserIdentity>(
+                "Account_GetByUserId", new { ApplicationUserId = applicationUserId },
+                commandType: CommandType.StoredProcedure
+                );
+        }
+        return applicationUser;
+    }
+
     public async Task<IdentityResult> UpdateAsync(ApplicationUserIdentity user, CancellationToken cancellationToken)
     {
         var dataTable = new DataTable();
