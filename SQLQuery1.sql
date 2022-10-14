@@ -126,6 +126,25 @@ AS
 		t1.NormalizedEmail = @NormalizedEmail
 GO
 
+CREATE PROCEDURE [dbo].[Account_GetByUserId]
+	@ApplicationUserId INT
+AS
+	SELECT
+		t1.ApplicationUserId,
+		t1.Username,
+		t1.NormalizedUsername,
+		t1.Email,
+		t1.NormalizedEmail,
+		t1.Gender,
+		t1.PasswordHash,
+		t1.Firstname,
+		t1.LastName
+	FROM
+		Account t1
+	WHERE 
+		t1.ApplicationUserId = @ApplicationUserId
+GO
+
 CREATE PROCEDURE [dbo].[Account_Insert]
 	@Account AccountType READONLY
 AS
