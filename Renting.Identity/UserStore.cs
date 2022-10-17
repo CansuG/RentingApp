@@ -35,9 +35,9 @@ public class UserStore :
         return await _accountRepository.GetByEmailAsync(normalizedEmail, cancellationToken);
     }
 
-    public Task<ApplicationUserIdentity> FindByIdAsync(string userId, CancellationToken cancellationToken)
+    public async Task<ApplicationUserIdentity> FindByIdAsync(string userId, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await _accountRepository.GetByUserId(int.Parse(userId), cancellationToken);
     }
 
     public Task<string> GetEmailAsync(ApplicationUserIdentity user, CancellationToken cancellationToken)
@@ -115,9 +115,9 @@ public class UserStore :
         return Task.FromResult(0);
     }
 
-    public async Task<IdentityResult> UpdateAsync(ApplicationUserIdentity user, CancellationToken cancellationToken)
+    public Task<IdentityResult> UpdateAsync(ApplicationUserIdentity user, CancellationToken cancellationToken)
     {
-        return await _accountRepository.UpdateAsync(user, cancellationToken);
+        throw new NotImplementedException();
     }
 
     public void Dispose()
