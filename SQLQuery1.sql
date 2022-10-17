@@ -349,4 +349,38 @@ BEGIN
 		
 END
 
+CREATE PROCEDURE [dbo].[Account_Update]
+	@Account AccountType READONLY,
+	@ApplicationUserId INT
+AS
+	MERGE INTO [dbo].[Account] TARGET
+	USING(
+		SELECT
+			@ApplicationUserId[ApplicationUserId],
+			Username,
+			NormalizedUsername,
+			Email,
+			NormalizedEmail,
+			Gender,
+			FirstName,
+			LastName
+		FROM
+			@Account
+	)AS SOURCE
+	ON
+	(
+		TARGET.ApplicationUserId = SOURCE.ApplicationUserId
+	)
+	WHEN MATCHED THEN
+		UPDATE SET
+			TARGET.[Username] = SOURCE.[Username],
+			TARGET.[NormalizedUsername] = SOURCE.[NormalizedUsername],
+			TARGET.[Email] = SOURCE.[Email],
+			TARGET.[NormalizedEmail] = SOURCE.[NormalizedEmail],
+			TARGET.[Gender] = SOURCE.[Gender],
+			TARGET.[FirstName] = SOURCE.[FirstName],
+			TARGET.[LastName] = SOURCE.[LastName];
+
+	SELECT CAST(SCOPE_IDENTITY() AS INT);
+GO
 

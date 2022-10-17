@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
 namespace Renting.Models.Account;
+
 
 public class ApplicationUserCreate : ApplicationUserLogin
 {
@@ -11,6 +12,7 @@ public class ApplicationUserCreate : ApplicationUserLogin
     [Required(ErrorMessage = "Lastname is required")]
     [MaxLength(20, ErrorMessage = "Must be at most 20 characters")]
     public string? LastName { get; set; }
+
 
     [Required(ErrorMessage = "Username is required")]
     [MinLength(5, ErrorMessage = "Must be at least 5 characters")]

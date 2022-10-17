@@ -14,7 +14,6 @@ public class AccountController : ControllerBase
     private readonly ITokenService _tokenService;
     private readonly UserManager<ApplicationUserIdentity> _userManager;
     private readonly SignInManager<ApplicationUserIdentity> _signInManager;
-    private readonly IAccountRepository _accountRepository;
 
     public AccountController(
         ITokenService tokenService,
@@ -25,6 +24,7 @@ public class AccountController : ControllerBase
         _userManager = userManager;
         _signInManager = signInManager;
     }
+
 
     [HttpPost("register")]
     public async Task<ActionResult<ApplicationUser>> Register(ApplicationUserCreate applicationUserCreate)
@@ -95,11 +95,21 @@ public class AccountController : ControllerBase
         return BadRequest("Invalid login attempt.");
     }
 
-    [HttpGet]
-    public async Task<ActionResult<ApplicationUserIdentity>> Get(int applicationUserId, CancellationToken cancellationToken)
+    [HttpGet("{applicationUserId}")]
+    public async Task<ActionResult<ApplicationUserIdentity>> Get(int applicationUserId)
     {
-        var account = await _accountRepository.GetByUserId(applicationUserId, cancellationToken);
+        var account = await _userManager.FindByIdAsync(applicationUserId.ToString());
 
-        return Ok(account);
+        GetAccount accountInfo = new GetAccount()
+        { 
+            ApplicationUserId = account.ApplicationUserId,
+            Username = account.Username,
+            Email = account.Email,
+            FirstName = account.FirstName,
+            LastName = account.LastName,
+            Gender = account.Gender,
+        };
+
+        return Ok(accountInfo);
     }
 }
