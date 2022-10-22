@@ -25,6 +25,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IAccountService, AccountService>();
 
         services.AddScoped<IAccountRepository, AccountRepository>();
         services.AddScoped<IAdvertRepository, AdvertRepository>();
