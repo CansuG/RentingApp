@@ -111,26 +111,8 @@ public class AccountRepository : IAccountRepository
         return applicationUser;
     }
 
-    public async Task<IdentityResult> UpdateAsync(ApplicationUserIdentity user, CancellationToken cancellationToken)
+    public async Task<IdentityResult> UpdateAsync(ApplicationUserIdentity user)
     {
-        var dataTable = new DataTable();
-        dataTable.Columns.Add("Username", typeof(string));
-        dataTable.Columns.Add("NormalizedUsername", typeof(string));
-        dataTable.Columns.Add("Email", typeof(string));
-        dataTable.Columns.Add("NormalizedEmail", typeof(string));
-        dataTable.Columns.Add("Gender", typeof(string));
-        dataTable.Columns.Add("FirstName", typeof(string));
-        dataTable.Columns.Add("LastName", typeof(string));
-
-        dataTable.Rows.Add(
-            user.Username,
-            user.NormalizedUsername,
-            user.Email,
-            user.NormalizedEmail,
-            user.Gender,
-            user.FirstName,
-            user.LastName);
-
 
         using (var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
         {
@@ -139,12 +121,53 @@ public class AccountRepository : IAccountRepository
 
             await connection.ExecuteScalarAsync<int?>(
                 "Account_Update",
-                new { Account = dataTable.AsTableValuedParameter("dbo.AccountType"), ApplicationUserId = user.ApplicationUserId },
+                new { ApplicationUserId = user.ApplicationUserId,
+                      Username = user.Username,
+                      NormalizedUsername = user.NormalizedUsername,
+                      Gender = user.Gender,
+                      FirstName = user.FirstName,
+                      LastName = user.LastName,
+                },
                 commandType: CommandType.StoredProcedure
                 );
         }
 
         return IdentityResult.Success;
+
     }
+
+    /*public async Task<List<string>> GetEmailsAsync()
+    {
+        IEnumerable<string> emails;
+
+        using (var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
+        {
+            await connection.OpenAsync();
+
+            emails = await connection.QueryAsync<string>(
+                "Account_GetEmails",
+                new {},
+                commandType: CommandType.StoredProcedure);
+        }
+
+        return emails.ToList();
+    }
+
+    public async Task<List<string>> GetUsernamesAsync()
+    {
+        IEnumerable<string> usernames;
+
+        using (var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
+        {
+            await connection.OpenAsync();
+
+            usernames = await connection.QueryAsync<string>(
+                "Account_GetUsernames",
+                commandType: CommandType.StoredProcedure);
+        }
+
+        return usernames.ToList();
+    }
+    */
 }
 

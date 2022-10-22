@@ -49,6 +49,16 @@ CREATE TYPE [dbo].[AccountType] AS TABLE
 )
 GO
 
+CREATE TYPE [dbo].[AccountUpdateType] AS TABLE
+(
+	[Username] VARCHAR(20) NOT NULL,
+	[NormalizedUsername] VARCHAR(20) NOT NULL,
+	[Gender] VARCHAR(20) NOT NULL,
+	[FirstName] NVARCHAR(20) NULL,
+	[LastName] NVARCHAR(20) NULL
+)
+GO
+
 CREATE TYPE [dbo].[AdvertType] AS TABLE
 (
 	[AdvertId] INT NOT NULL,
@@ -132,17 +142,24 @@ AS
 	SELECT
 		t1.ApplicationUserId,
 		t1.Username,
-		t1.NormalizedUsername,
 		t1.Email,
-		t1.NormalizedEmail,
 		t1.Gender,
-		t1.PasswordHash,
 		t1.Firstname,
 		t1.LastName
 	FROM
 		Account t1
 	WHERE 
 		t1.ApplicationUserId = @ApplicationUserId
+GO
+
+CREATE PROCEDURE [dbo].[Account_GetEmails] 
+AS
+	SELECT Email FROM Account
+GO
+
+CREATE PROCEDURE [dbo].[Account_GetUsernames] 
+AS
+	SELECT Username FROM Account
 GO
 
 CREATE PROCEDURE [dbo].[Account_Insert]
@@ -349,8 +366,26 @@ BEGIN
 		
 END
 
+CREATE PROCEDURE [dbo].[AccountUpdate]
+	@ApplicationUserId INT,
+	@Username NVARCHAR(20),
+	@NormalizedUsername NVARCHAR(20),
+	@Gender VARCHAR(20),
+	@FirstName NVARCHAR(20),
+	@LastName NVARCHAR(20)
+AS
+	UPDATE dbo.Account
+	SET
+		Username = @Username,
+		NormalizedUsername = @NormalizedUsername,
+		Gender = @Gender,
+		FirstName = @FirstName,
+		LastName = @LastName 
+	WHERE ApplicationUserId = @ApplicationUserId
+GO
+
 CREATE PROCEDURE [dbo].[Account_Update]
-	@Account AccountType READONLY,
+	@Account AccountUpdateType READONLY,
 	@ApplicationUserId INT
 AS
 	MERGE INTO [dbo].[Account] TARGET
@@ -359,8 +394,6 @@ AS
 			@ApplicationUserId[ApplicationUserId],
 			Username,
 			NormalizedUsername,
-			Email,
-			NormalizedEmail,
 			Gender,
 			FirstName,
 			LastName
@@ -375,8 +408,6 @@ AS
 		UPDATE SET
 			TARGET.[Username] = SOURCE.[Username],
 			TARGET.[NormalizedUsername] = SOURCE.[NormalizedUsername],
-			TARGET.[Email] = SOURCE.[Email],
-			TARGET.[NormalizedEmail] = SOURCE.[NormalizedEmail],
 			TARGET.[Gender] = SOURCE.[Gender],
 			TARGET.[FirstName] = SOURCE.[FirstName],
 			TARGET.[LastName] = SOURCE.[LastName];
@@ -384,3 +415,4 @@ AS
 	SELECT CAST(SCOPE_IDENTITY() AS INT);
 GO
 
+select * from Account

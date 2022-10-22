@@ -12,4 +12,10 @@ public interface IAccountRepository
     public Task<ApplicationUserIdentity> GetByUsernameAsync(string normalizedUsername, CancellationToken cancellationToken);
 
     public Task<ApplicationUserIdentity> GetByUserId(int applicationUserId, CancellationToken cancellationToken);
+
+    public Task<IdentityResult> UpdateAsync(ApplicationUserIdentity user);
+
+    public Task<List<string>> GetUsernamesAsync();
+
+    public Task<List<string>> GetEmailsAsync();
 }
