@@ -118,6 +118,22 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.1, )"
+            },
+            "ServiceStack.Interfaces": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            },
+            "Syncromatics.System.Linq.Dynamic": {
+              "target": "Package",
+              "version": "[2.0.3, )"
+            },
+            "System.Linq.Dynamic.Core": {
+              "target": "Package",
+              "version": "[1.2.20, )"
+            },
+            "sqlite-net-pcl": {
+              "target": "Package",
+              "version": "[1.8.116, )"
             }
           },
           "imports": [
@@ -249,6 +265,9 @@
             "projectReferences": {
               "C:\\Users\\MONSTER\\source\\repos\\RentingApp\\Renting.Models\\Renting.Models.csproj": {
                 "projectPath": "C:\\Users\\MONSTER\\source\\repos\\RentingApp\\Renting.Models\\Renting.Models.csproj"
+              },
+              "C:\\Users\\MONSTER\\source\\repos\\RentingApp\\Renting.Repository\\Renting.Repository.csproj": {
+                "projectPath": "C:\\Users\\MONSTER\\source\\repos\\RentingApp\\Renting.Repository\\Renting.Repository.csproj"
               }
             }
           }
@@ -263,6 +282,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Mvc.Core": {
+              "target": "Package",
+              "version": "[2.2.5, )"
+            },
             "Microsoft.Extensions.Configuration.Abstractions": {
               "target": "Package",
               "version": "[6.0.0, )"

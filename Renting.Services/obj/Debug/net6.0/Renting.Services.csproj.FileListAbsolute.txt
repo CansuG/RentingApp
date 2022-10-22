@@ -28,3 +28,5 @@ C:\Users\MONSTER\source\repos\RentingApp\Renting.Services\obj\Debug\net6.0\Renti
 C:\Users\MONSTER\source\repos\RentingApp\Renting.Services\obj\Debug\net6.0\refint\Renting.Services.dll
 C:\Users\MONSTER\source\repos\RentingApp\Renting.Services\obj\Debug\net6.0\Renting.Services.pdb
 C:\Users\MONSTER\source\repos\RentingApp\Renting.Services\obj\Debug\net6.0\ref\Renting.Services.dll
+C:\Users\MONSTER\source\repos\RentingApp\Renting.Services\bin\Debug\net6.0\Renting.Repository.dll
+C:\Users\MONSTER\source\repos\RentingApp\Renting.Services\bin\Debug\net6.0\Renting.Repository.pdb
