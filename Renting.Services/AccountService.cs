@@ -16,14 +16,12 @@ public class AccountService : IAccountService
         for(int i = 0; i < emails.Count; i++)
         {
             var email = emails[i];
-            if (email.Contains(name))
+            if (email.Equals(name))
             {
-                return email + "exists";
+                return email + " exists. Please select another email.";
             }
-
-            return "ok";
         }
-        return "";
+        return "ok";
     }
 
     public string UniqueForUsername(string name, IList<string> usernamesList)
@@ -33,13 +31,11 @@ public class AccountService : IAccountService
         for (int i = 0; i < usernames.Count; i++)
         {
             var username = usernames[i];
-            if (username.Contains(name))
+            if (username.Equals(name))
             {
-                return username + "exists";
+                return username + " exists. Please select another username.";
             }
-
-            return "ok";
         }
-        return "";
+        return "ok";
     }
 }

@@ -15,7 +15,7 @@ public interface IAccountRepository
 
     public Task<IdentityResult> UpdateAsync(ApplicationUserIdentity user);
 
-    //public Task<List<string>> GetUsernamesAsync();
+    public Task<List<string>> GetUsernamesAsync();
 
-    //public Task<List<string>> GetEmailsAsync();
+    public Task<List<string>> GetEmailsAsync();
 }
