@@ -136,7 +136,7 @@ public class AccountRepository : IAccountRepository
 
     }
 
-    /*public async Task<List<string>> GetEmailsAsync()
+    public async Task<List<string>> GetEmailsAsync()
     {
         IEnumerable<string> emails;
 
@@ -163,11 +163,12 @@ public class AccountRepository : IAccountRepository
 
             usernames = await connection.QueryAsync<string>(
                 "Account_GetUsernames",
+                new {},
                 commandType: CommandType.StoredProcedure);
         }
 
         return usernames.ToList();
     }
-    */
+    
 }
 

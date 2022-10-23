@@ -35,7 +35,7 @@ public class AccountController : ControllerBase
     [HttpPut]
     public async Task<ActionResult<GetAccount>> Update(GetAccount userInfo)
     {
-        /*var usernames = await _accountRepository.GetUsernamesAsync();
+        var usernames = await _accountRepository.GetUsernamesAsync();
         var resultUsername = _accountService.UniqueForUsername(userInfo.Username, usernames);
 
         var emails = await _accountRepository.GetEmailsAsync();
@@ -50,7 +50,7 @@ public class AccountController : ControllerBase
         {
             return BadRequest(resultEmail);
         }
-        */
+        
 
         ApplicationUserIdentity identity = new ApplicationUserIdentity()
         {
@@ -86,7 +86,7 @@ public class AccountController : ControllerBase
     [HttpPost("register")]
     public async Task<ActionResult<ApplicationUser>> Register(ApplicationUserCreate applicationUserCreate)
     {
-        /*var usernames = await _accountRepository.GetUsernamesAsync();
+        var usernames = await _accountRepository.GetUsernamesAsync();
         var resultUsername = _accountService.UniqueForUsername(applicationUserCreate.Username, usernames);
 
         var emails = await _accountRepository.GetEmailsAsync();
@@ -100,7 +100,7 @@ public class AccountController : ControllerBase
         if (!resultEmail.Equals("ok"))
         {
             return BadRequest(resultEmail);
-        }*/
+        }
 
         var applicationUserIdentity = new ApplicationUserIdentity
         {
@@ -185,7 +185,7 @@ public class AccountController : ControllerBase
         return Ok(accountInfo);
     }
 
-    /*[HttpGet("control/{username}")]
+    [HttpGet("controlUsername/{username}")]
     public async Task<ActionResult<string>> ControlUniqueForUsername(string username)
     {
         var usernames = await _accountRepository.GetUsernamesAsync();
@@ -199,8 +199,8 @@ public class AccountController : ControllerBase
 
         return Ok(result);
     }
-
-    [HttpGet("control/{email}")]
+    
+    [HttpGet("controlEmail/{email}")]
     public async Task<ActionResult<string>> ControlUniqueForEmail(string email)
     {
         var emails = await _accountRepository.GetEmailsAsync();
@@ -214,5 +214,5 @@ public class AccountController : ControllerBase
 
         return Ok(result);
     }
-    */
+    
 }
