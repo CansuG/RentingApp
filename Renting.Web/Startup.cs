@@ -15,6 +15,7 @@ public class Startup
 {
 
     public IConfiguration Configuration { get; }
+
     public Startup(IConfiguration configuration)
     {
         JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
@@ -44,7 +45,16 @@ public class Startup
             .AddSignInManager<SignInManager<ApplicationUserIdentity>>();
 
         services.AddControllers();
-        services.AddCors();
+
+        services.AddCors(o => o.AddPolicy("App", builder =>
+            builder
+                .WithOrigins("http://localhost:5101", "ionic://localhost", "http://localhost") 
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials()
+                .SetIsOriginAllowed((host) => true)
+        ));
+
 
         services.AddAuthentication(options =>
         {
@@ -100,18 +110,16 @@ public class Startup
 
         app.ConfigureExceptionHandler();
 
-        app.UseStaticFiles();
-
         app.UseRouting();
 
-        if (env.IsDevelopment())
-        {
-            app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
-        }
-        else
-        {
-            app.UseCors();
-        }
+        app.UseStaticFiles();
+
+        app.UseCors(options => options
+                                     .AllowAnyHeader()
+                                     .AllowAnyMethod()
+                                     .AllowCredentials()
+                                     .WithOrigins("http://localhost:5101")
+                                     .SetIsOriginAllowed((host) => true));
 
         app.UseAuthentication();
 
