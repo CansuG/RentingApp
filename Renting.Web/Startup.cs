@@ -27,6 +27,7 @@ public class Startup
     {
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IAccountService, AccountService>();
+        services.AddScoped<IPhotoService,PhotoService>();
 
         services.AddScoped<IAccountRepository, AccountRepository>();
         services.AddScoped<IAdvertRepository, AdvertRepository>();
