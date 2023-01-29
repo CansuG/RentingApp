@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Renting.Repository
 {
-    internal interface IAdvertPhotoRepository
+    public interface IAdvertPhotoRepository
     {
         public Task<AdvertPhoto?> AddPhotoAsync(AdvertPhotoCreate advertPhotoCreate, int advertId);
 
