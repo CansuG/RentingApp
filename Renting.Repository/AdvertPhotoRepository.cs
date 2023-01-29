@@ -13,7 +13,7 @@ using System.Threading;
 
 namespace Renting.Repository
 {
-    internal class AdvertPhotoRepository : IAdvertPhotoRepository
+    public class AdvertPhotoRepository : IAdvertPhotoRepository
     {
         private readonly IConfiguration _config;
 
