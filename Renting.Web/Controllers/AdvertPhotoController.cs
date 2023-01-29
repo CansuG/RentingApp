@@ -24,6 +24,10 @@ namespace Renting.Controllers
         public async Task<IActionResult> GetPhotosByAdvertId(int advertId)
         {
             var photos = await _advertPhotoRepository.GetPhotoByAdvertIdAsync(advertId);
+            if(photos.Count == 0)
+            {
+                return NotFound("There is no photo for this advert.");
+            }
             return Ok(photos);
         }
 
@@ -79,6 +83,8 @@ namespace Renting.Controllers
         public async Task<IActionResult> DeletePhoto(int photoId)
         {
             var foundPhoto = await _advertPhotoRepository.GetPhotoByPhotoIdAsync(photoId);
+            if(foundPhoto == null) { return NotFound("Photo did not found!"); }
+
             var deleteResult = await _photoService.DeletePhotoAsync(foundPhoto.PublicId);
             if (deleteResult.Error != null) return BadRequest(deleteResult.Error.Message);
 

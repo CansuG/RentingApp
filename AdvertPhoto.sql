@@ -112,3 +112,6 @@ GO
 --By the time it becomes 10, AddPhoto method would be inactive
 --If we cannot do that, frontend can prevent it too (temporarily)
 
+select * from AdvertPhoto
+
+USE RentingDB;
