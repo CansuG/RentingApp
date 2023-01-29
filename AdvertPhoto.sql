@@ -35,35 +35,35 @@ GO
 
 --AddPhoto ?
 CREATE PROCEDURE [dbo].[AdvertPhoto_AddPhoto]
-	@AdvertPhoto AdvertPhotoType READONLY,
-	@AdvertId INT
+    @AdvertPhoto AdvertPhotoType READONLY,
+    @AdvertId INT
 AS
-	MERGE INTO [dbo].[AdvertPhoto] TARGET
-	USING(
-		SELECT
-			@PhotoId,
-			@AdvertId,
-			@PublicId,
-			@ImageURL
-		FROM
-			@AdvertPhoto
-	)AS SOURCE
-	ON
-	(
-		TARGET.PhotoId = SOURCE.PhotoId AND TARGET.AdvertId = SOURCE.AdvertId
-	)
-	WHEN NOT MATCHED BY TARGET THEN
-		INSERT(
-			[AdvertId],
-			[PublicId],
-			[ImageURL]
-		)
-		VALUES(
-			SOURCE.[AdvertId],
-			SOURCE.[PublicId],
-			SOURCE.[ImageURL]
-		);
-	SELECT CAST(SCOPE_IDENTITY() AS INT);
+    MERGE INTO [dbo].[AdvertPhoto] TARGET
+    USING(
+        SELECT
+            PhotoId,
+            @AdvertId as AdvertId,
+            PublicId,
+            ImageURL
+        FROM
+            @AdvertPhoto
+    )AS SOURCE
+    ON
+    (
+        TARGET.PhotoId = SOURCE.PhotoId AND TARGET.AdvertId = SOURCE.AdvertId
+    )
+    WHEN NOT MATCHED BY TARGET THEN
+        INSERT(
+            [AdvertId],
+            [PublicId],
+            [ImageURL]
+        )
+        VALUES(
+            SOURCE.[AdvertId],
+            SOURCE.[PublicId],
+            SOURCE.[ImageURL]
+        );
+    SELECT CAST(SCOPE_IDENTITY() AS INT);
 GO
 
 --DeletePhoto (BY PhotoId)
@@ -111,3 +111,7 @@ GO
 --We can add PhotoCount (Default 0) to the advert table
 --By the time it becomes 10, AddPhoto method would be inactive
 --If we cannot do that, frontend can prevent it too (temporarily)
+
+select * from AdvertPhoto
+
+USE RentingDB;
