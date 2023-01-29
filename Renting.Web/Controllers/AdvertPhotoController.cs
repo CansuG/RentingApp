@@ -38,24 +38,25 @@ namespace Renting.Controllers
             return Ok(photo);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> UploadPhoto(IFormFile file)
+        [HttpPost("upload")]
+        public async Task<ActionResult<PhotoCreate>> UploadPhoto(IFormFile file)
         {
 
             var uploadResult = await _photoService.AddPhotosAsync(file);
 
             if (uploadResult.Error != null) return BadRequest(uploadResult.Error.Message);
 
-            var advertPhoto = new AdvertPhoto
+            var photoCreate = new PhotoCreate
             {
                 PublicId = uploadResult.PublicId,
-                ImageUrl = uploadResult.SecureUrl.AbsoluteUri
+                ImageUrl = uploadResult.SecureUrl.AbsoluteUri,
+                Description = file.FileName
             };
 
-            return Ok(advertPhoto);
+            return Ok(photoCreate);
         }
 
-        /*[HttpPost]
+        [HttpPost]
         public async Task<ActionResult<AdvertPhoto>> AddPhoto(AdvertPhoto advertPhoto)
         {
             AdvertPhotoCreate advertPhotoCreate = new AdvertPhotoCreate
@@ -72,7 +73,7 @@ namespace Renting.Controllers
             }
 
             return Ok(newPhoto);
-        }*/
+        }
 
         [HttpDelete("delete/{photoId}")]
         public async Task<IActionResult> DeletePhoto(int photoId)

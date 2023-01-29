@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Renting.Identity;
 using Renting.Models.Account;
+using Renting.Models.Settings;
 using Renting.Repository;
 using Renting.Services;
 using Renting.Web.Extensions;
@@ -25,9 +26,11 @@ public class Startup
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+        services.Configure<CloudinaryOptions>(Configuration.GetSection("CloudinaryOptions"));
+
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IAccountService, AccountService>();
-        services.AddScoped<IPhotoService,PhotoService>();
+        services.AddScoped<IPhotoService, PhotoService>();
 
         services.AddScoped<IAccountRepository, AccountRepository>();
         services.AddScoped<IAdvertRepository, AdvertRepository>();
