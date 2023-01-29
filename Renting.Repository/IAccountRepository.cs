@@ -18,4 +18,6 @@ public interface IAccountRepository
     public Task<List<string>> GetUsernamesAsync();
 
     public Task<List<string>> GetEmailsAsync();
+
+    public Task<IdentityResult> UpdateProfilePhotoAsync(int applicationUserId, String publicId, String imageURL);
 }

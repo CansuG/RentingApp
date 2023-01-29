@@ -24,6 +24,22 @@ public class AccountService : IAccountService
         return "ok";
     }
 
+    public string UniqueForYourUsername(string name, string nameOfUser, IList<string> usernamesList)
+    {
+        var usernames = usernamesList;
+
+        for (int i = 0; i < usernames.Count; i++)
+        {
+            var username = usernames[i];
+            if (username.Equals(name) && !name.Equals(nameOfUser))
+            {
+                return username + " exists. Please select another username.";
+            }
+        }
+        return "ok";
+
+    }
+
     public string UniqueForUsername(string name, IList<string> usernamesList)
     {
         var usernames = usernamesList;

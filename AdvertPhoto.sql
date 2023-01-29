@@ -2,7 +2,7 @@
 CREATE TABLE AdvertPhoto(
 	PhotoId INT NOT NULL IDENTITY(1, 1),
 	AdvertId INT NOT NULL,
-	PublicId INT NOT NULL,
+	PublicId NVARCHAR(MAX) NOT NULL,
 	ImageURL NVARCHAR(MAX) NOT NULL,
 	AddingDate DATETIME NOT NULL DEFAULT GETDATE(),
 	PRIMARY KEY(PhotoId),
@@ -13,8 +13,7 @@ GO
 --TYPE
 CREATE TYPE [dbo].[AdvertPhotoType] AS TABLE
 (
-	[PhotoId] INT NOT NULL IDENTITY(1, 1),
-	[PublicId] INT NOT NULL,
+	[PublicId] NVARCHAR(MAX) NOT NULL,
 	[ImageURL] NVARCHAR(MAX) NOT NULL
 )
 GO
@@ -26,45 +25,14 @@ AS
 		t1.PhotoId,
 		t1.AdvertId,
 		t1.PublicId,
-		t1.ImageURL
+		t1.ImageURL,
+		t1.AddingDate
 	FROM
 		dbo.AdvertPhoto t1
 GO
 
 --PROCEDURES
 
---AddPhoto ?
-CREATE PROCEDURE [dbo].[AdvertPhoto_AddPhoto]
-    @AdvertPhoto AdvertPhotoType READONLY,
-    @AdvertId INT
-AS
-    MERGE INTO [dbo].[AdvertPhoto] TARGET
-    USING(
-        SELECT
-            PhotoId,
-            @AdvertId as AdvertId,
-            PublicId,
-            ImageURL
-        FROM
-            @AdvertPhoto
-    )AS SOURCE
-    ON
-    (
-        TARGET.PhotoId = SOURCE.PhotoId AND TARGET.AdvertId = SOURCE.AdvertId
-    )
-    WHEN NOT MATCHED BY TARGET THEN
-        INSERT(
-            [AdvertId],
-            [PublicId],
-            [ImageURL]
-        )
-        VALUES(
-            SOURCE.[AdvertId],
-            SOURCE.[PublicId],
-            SOURCE.[ImageURL]
-        );
-    SELECT CAST(SCOPE_IDENTITY() AS INT);
-GO
 
 --DeletePhoto (BY PhotoId)
 CREATE PROCEDURE [dbo].[AdvertPhoto_DeletePhotoById]
@@ -84,7 +52,8 @@ AS
 		[PhotoId],
 		[AdvertId],
 		[PublicId],
-		[ImageURL]
+		[ImageURL],
+		[AddingDate]
 	FROM 
 		[aggregate].[AdvertPhoto] t1
 	WHERE
@@ -99,7 +68,8 @@ AS
 		[PhotoId],
 		[AdvertId],
 		[PublicId],
-		[ImageURL]
+		[ImageURL],
+		[AddingDate]
 	FROM 
 		[aggregate].[AdvertPhoto] t1
 	WHERE 
@@ -115,3 +85,26 @@ GO
 select * from AdvertPhoto
 
 USE RentingDB;
+
+USE [RentingDB]
+GO
+
+
+CREATE PROCEDURE [dbo].[AdvertPhoto_AddPhoto]
+    @AdvertPhoto AdvertPhotoType READONLY,
+    @AdvertId INT
+AS
+	DECLARE @publicIdVariable NVARCHAR(MAX), @imageURLVariable NVARCHAR(MAX)
+	SELECT @publicIdVariable = PublicId, @imageURLVariable = ImageURl FROM @AdvertPhoto
+
+    INSERT INTO [dbo].[AdvertPhoto] (AdvertId, PublicId, ImageURL)
+	VALUES (
+		@AdvertId,
+		@publicIdVariable,
+		@imageURLVariable
+	);
+
+    SELECT CAST(SCOPE_IDENTITY() AS INT);
+
+GO
+

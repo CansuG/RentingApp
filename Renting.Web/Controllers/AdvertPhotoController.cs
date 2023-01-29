@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Renting.Models.AdvertPhoto;
+using Renting.Models.Photo;
 using Renting.Repository;
 using Renting.Services;
 using System.IdentityModel.Tokens.Jwt;
