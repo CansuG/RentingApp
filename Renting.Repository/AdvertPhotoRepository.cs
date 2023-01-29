@@ -92,12 +92,10 @@ namespace Renting.Repository
             if (await CheckPhotoAsync(advertId))
             {
                 var dataTable = new DataTable();
-                dataTable.Columns.Add("PhotoId", typeof(int));
-                dataTable.Columns.Add("PublicId", typeof(int));
+                dataTable.Columns.Add("PublicId", typeof(string));
                 dataTable.Columns.Add("ImageURL", typeof(string));
 
                 dataTable.Rows.Add(
-                advertPhotoCreate.PhotoId,
                 advertPhotoCreate.PublicId,
                 advertPhotoCreate.ImageUrl);
 
@@ -121,7 +119,6 @@ namespace Renting.Repository
 
                 return advertPhoto;
             }
-            //If there are more than 10 photos, then the method returns null. (Ask if it is right)
             return null;      
         }
     }

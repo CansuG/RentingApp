@@ -9,7 +9,6 @@ namespace Renting.Models.AdvertPhoto
 {
     public class AdvertPhotoCreate
     {
-        public int PhotoId { get; set; }
      
         [Required(ErrorMessage = "ImageURL is required")]
         public string ImageUrl { get; set; }
