@@ -1,10 +1,12 @@
+USE RentingDB;
+
 CREATE TABLE SavedAdvert(
 	SavedAdvertId INT NOT NULL IDENTITY(1,1),
 	SavingDate DATETIME NOT NULL DEFAULT GETDATE(),
 	ApplicationUserId INT NOT NULL,
 	AdvertId INT NOT NULL,
 	PRIMARY KEY(SavedAdvertId),
-	FOREIGN KEY(ApplicationUserId) REFERENCES Account(ApplicationUserId)
+	FOREIGN KEY(ApplicationUserId) REFERENCES Account(ApplicationUserId),
 	FOREIGN KEY(AdvertId) REFERENCES Advert(AdvertId)
 )
 
@@ -73,7 +75,7 @@ AS
 GO
 
 CREATE PROCEDURE [dbo].[SavedAdvert_UnsaveAdvert]
-       @SavedAdvertId INT        
+    @SavedAdvertId INT        
 AS 
 BEGIN 
 	SET NOCOUNT ON 
@@ -81,6 +83,6 @@ DELETE
 	FROM
 		SavedAdvert
 	WHERE
-		SaverAdvertId = @SaverAdvertId
+		SavedAdvertId = @SavedAdvertId
 
 END
