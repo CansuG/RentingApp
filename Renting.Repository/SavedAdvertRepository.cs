@@ -37,9 +37,7 @@ namespace Renting.Repository
                     "SavedAdvert_SaveAdvert",
                     new
                     {
-                        SavedAdvert = dataTable.AsTableValuedParameter("dbo.SavedAdvertType"),
-                        ApplicationUserId = applicationUserId,
-                        AdvertId = advertId
+                        SavedAdvert = dataTable.AsTableValuedParameter("dbo.SavedAdvertType")
                     },
                     commandType: CommandType.StoredProcedure);
             }
