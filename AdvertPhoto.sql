@@ -1,4 +1,6 @@
 --TABLE
+USE RentingDB;
+
 CREATE TABLE AdvertPhoto(
 	PhotoId INT NOT NULL IDENTITY(1, 1),
 	AdvertId INT NOT NULL,
