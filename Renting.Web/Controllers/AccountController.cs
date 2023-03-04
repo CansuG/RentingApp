@@ -87,7 +87,7 @@ public class AccountController : ControllerBase
         return BadRequest(result);
     }
 
-
+    [Authorize]
     [HttpPut("profile_photo")]
     public async Task<ActionResult<GetAccount>> UpdateProfilePhoto(GetAccount userInfo)
     {
@@ -170,6 +170,7 @@ public class AccountController : ControllerBase
         return BadRequest(result);
     }
 
+    [Authorize]
     [HttpPost("login")]
     public async Task<ActionResult<ApplicationUser>> Login(ApplicationUserLogin applicationUserLogin)
     {
@@ -255,6 +256,7 @@ public class AccountController : ControllerBase
         return Ok(result);
     }
 
+    [Authorize]
     [HttpPost("upload_photo")]
     public async Task<ActionResult<PhotoCreate>> UploadPhoto(IFormFile file)
     {
@@ -273,6 +275,7 @@ public class AccountController : ControllerBase
         return Ok(photoCreate);
     }
 
+    [Authorize]
     [HttpDelete("profile_photo/{publicId}")]
     public async Task<ActionResult<int>> DeletePhoto(String publicId)
     {

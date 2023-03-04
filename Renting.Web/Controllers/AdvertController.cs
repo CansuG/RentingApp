@@ -68,6 +68,7 @@ public class AdvertController : ControllerBase
     }
 
 
+    [Authorize]
     [HttpDelete("{advertId}")]
     public async Task<ActionResult<int>> Delete(int advertId)
     {
