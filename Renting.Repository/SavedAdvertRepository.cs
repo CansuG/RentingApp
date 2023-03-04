@@ -47,20 +47,20 @@ namespace Renting.Repository
             return savedAdvert;
         }
 
-        public async Task<SavedAdvert> GetSavedAdvertAsync(int applicationUserId)
+        public async Task<List<SavedAdvert>> GetSavedAdvertAsync(int applicationUserId)
         {
-            SavedAdvert savedAdvert;
+            IEnumerable<SavedAdvert> savedAdverts;
 
             using (var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
             {
                 await connection.OpenAsync();
 
-                savedAdvert = await connection.QueryFirstOrDefaultAsync<SavedAdvert>(
+                savedAdverts = await connection.QueryAsync<SavedAdvert>(
                     "SavedAdvert_GetSavedAdvertByUserId",
                     new { ApplicationUserId = applicationUserId },
                     commandType: CommandType.StoredProcedure);
             }
-            return savedAdvert;
+            return savedAdverts.ToList();
         }
 
         public async Task<int> UnsaveAdvertAsync(int savedAdvertId)
