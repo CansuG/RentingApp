@@ -35,6 +35,7 @@ public class Startup
         services.AddScoped<IAccountRepository, AccountRepository>();
         services.AddScoped<IAdvertRepository, AdvertRepository>();
         services.AddScoped<IAdvertPhotoRepository, AdvertPhotoRepository>();
+        services.AddScoped<ISavedAdvertRepository, SavedAdvertRepository>();
 
         services.AddIdentityCore<ApplicationUserIdentity>(opt =>
         {

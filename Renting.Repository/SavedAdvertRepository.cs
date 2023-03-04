@@ -11,7 +11,7 @@ using Dapper;
 
 namespace Renting.Repository
 {
-    public class SavedAdvertRepository
+    public class SavedAdvertRepository : ISavedAdvertRepository
     {
         private readonly IConfiguration _config;
 
