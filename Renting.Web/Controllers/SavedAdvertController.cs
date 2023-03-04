@@ -23,15 +23,26 @@ public class SavedAdvertController : ControllerBase
         return Ok(savedAdvert);
     }
 
-    [HttpGet("{applicationUserId}")]
-    public async Task<IActionResult> GetSavedAdvert(int applicationUserId)
+    [HttpGet("{savedAdvertId}")]
+    public async Task<IActionResult> GetSavedAdvert(int savedAdvertId)
     {
-        var savedAdvert = await _savedAdvertRepository.GetSavedAdvertAsync(applicationUserId);
+        var savedAdvert = await _savedAdvertRepository.GetSavedAdvertAsync(savedAdvertId);
         if (savedAdvert == null)
+        {
+            return NotFound("The advert cannot be found.");
+        }
+        return Ok(savedAdvert);
+    }
+
+    [HttpGet("{applicationUserId}")]
+    public async Task<IActionResult> GetSavedAdverts(int applicationUserId)
+    {
+        var savedAdverts = await _savedAdvertRepository.GetSavedAdvertsAsync(applicationUserId);
+        if (savedAdverts.Count == 0)
         {
             return NotFound("The advert(s) cannot be found.");
         }
-        return Ok(savedAdvert);
+        return Ok(savedAdverts);
     }
 
     [HttpDelete("{savedAdvertId}")]

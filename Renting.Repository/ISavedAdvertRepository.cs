@@ -11,8 +11,10 @@ namespace Renting.Repository
     {
         public Task<SavedAdvert?> SaveAdvertAsync(SavedAdvertCreate savedAdvertCreate, int applicationUserId, int advertId);
 
-        public Task<SavedAdvert> GetSavedAdvertAsync(int applicationUserId);
-        
+        public Task<SavedAdvert> GetSavedAdvertAsync(int savedAdvertId);
+
+        public Task<SavedAdvert> GetSavedAdvertsAsync(int applicationUserId);
+
         public Task<int> UnsaveAdvertAsync(int savedAdvertId);
     }
 }

@@ -47,7 +47,7 @@ namespace Renting.Repository
             return savedAdvert;
         }
 
-        public async Task<SavedAdvert> GetSavedAdvertAsync(int applicationUserId)
+        public async Task<SavedAdvert> GetSavedAdvertAsync(int savedAdvertId)
         {
             SavedAdvert savedAdvert;
 
@@ -56,11 +56,27 @@ namespace Renting.Repository
                 await connection.OpenAsync();
 
                 savedAdvert = await connection.QueryFirstOrDefaultAsync<SavedAdvert>(
+                    "SavedAdvert_Get",
+                    new { SavedAdvertId = savedAdvertId },
+                    commandType: CommandType.StoredProcedure);
+            }
+            return savedAdvert;
+        }
+
+        public async Task<List<SavedAdvert>> GetSavedAdvertsAsync(int applicationUserId)
+        {
+            IEnumerable<SavedAdvert> savedAdverts;
+
+            using (var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
+            {
+                await connection.OpenAsync();
+
+                savedAdverts = await connection.QueryAsync<SavedAdvert>(
                     "SavedAdvert_GetSavedAdvertByUserId",
                     new { ApplicationUserId = applicationUserId },
                     commandType: CommandType.StoredProcedure);
             }
-            return savedAdvert;
+            return savedAdverts.ToList();
         }
 
         public async Task<int> UnsaveAdvertAsync(int savedAdvertId)
