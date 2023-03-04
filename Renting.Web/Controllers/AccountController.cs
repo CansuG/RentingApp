@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Renting.Models.Account;
+using Renting.Models.Photo;
 using Renting.Repository;
 using Renting.Services;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Renting.Web.Controllers;
 
@@ -17,40 +19,38 @@ public class AccountController : ControllerBase
     private readonly SignInManager<ApplicationUserIdentity> _signInManager;
     private readonly IAccountService _accountService;
     private readonly IAccountRepository _accountRepository;
+    private readonly IPhotoService _photoService;
 
     public AccountController(
         ITokenService tokenService,
         UserManager<ApplicationUserIdentity> userManager,
         SignInManager<ApplicationUserIdentity> signInManager,
         IAccountService accountService,
-        IAccountRepository accountRepository)
+        IAccountRepository accountRepository,
+        IPhotoService photoService)
     {
         _tokenService = tokenService;
         _userManager = userManager;
         _signInManager = signInManager;
         _accountService = accountService;
         _accountRepository = accountRepository;
+        _photoService = photoService;
     }
 
+    [Authorize]
     [HttpPut]
     public async Task<ActionResult<GetAccount>> Update(GetAccount userInfo)
     {
-        var usernames = await _accountRepository.GetUsernamesAsync();
-        var resultUsername = _accountService.UniqueForUsername(userInfo.Username, usernames);
+        int applicationUserId = int.Parse(User.Claims.First(i => i.Type == JwtRegisteredClaimNames.NameId).Value);
+        var user = await _userManager.FindByIdAsync(applicationUserId.ToString());
 
-        var emails = await _accountRepository.GetEmailsAsync();
-        var resultEmail = _accountService.UniqueForEmail(userInfo.Email, emails);
+        var usernames = await _accountRepository.GetUsernamesAsync();
+        var resultUsername = _accountService.UniqueForYourUsername(userInfo.Username,user.Username, usernames);
 
         if (!resultUsername.Equals("ok"))
         {
             return BadRequest(resultUsername);
         }
-
-        if (!resultEmail.Equals("ok"))
-        {
-            return BadRequest(resultEmail);
-        }
-        
 
         ApplicationUserIdentity identity = new ApplicationUserIdentity()
         {
@@ -59,7 +59,9 @@ public class AccountController : ControllerBase
             Email = userInfo.Email,
             Gender = userInfo.Gender,
             FirstName = userInfo.FirstName,
-            LastName = userInfo.LastName
+            LastName = userInfo.LastName,
+            PublicId = userInfo.PublicId,
+            ImageUrl = userInfo.ImageUrl,
         };
 
         var result = await _userManager.UpdateAsync(identity);
@@ -75,12 +77,42 @@ public class AccountController : ControllerBase
                 Email=identity.Email,
                 Gender = identity.Gender,
                 FirstName = identity.FirstName,
-                LastName = identity.LastName
+                LastName = identity.LastName,
+                PublicId = identity.PublicId,
+                ImageUrl = identity.ImageUrl,
             };
             return account;
         }
 
-        return BadRequest(result.Errors);
+        return BadRequest(result);
+    }
+
+
+    [HttpPut("profile_photo")]
+    public async Task<ActionResult<GetAccount>> UpdateProfilePhoto(GetAccount userInfo)
+    {
+        var resultUpdate = await _accountRepository.UpdateProfilePhotoAsync(userInfo.ApplicationUserId, userInfo.PublicId, userInfo.ImageUrl);
+
+        if (resultUpdate.Succeeded)
+        {
+            var identity = await _userManager.FindByIdAsync(userInfo.ApplicationUserId.ToString());
+
+            GetAccount account = new GetAccount()
+            {
+                ApplicationUserId = identity.ApplicationUserId,
+                Username = identity.Username,
+                Email = identity.Email,
+                Gender = identity.Gender,
+                FirstName = identity.FirstName,
+                LastName = identity.LastName,
+                PublicId = identity.PublicId,
+                ImageUrl = identity.ImageUrl,
+            };
+            return account;
+        }
+
+        return BadRequest(resultUpdate);
+
     }
 
     [HttpPost("register")]
@@ -109,6 +141,8 @@ public class AccountController : ControllerBase
             Gender = applicationUserCreate.Gender,
             FirstName = applicationUserCreate.FirstName,
             LastName = applicationUserCreate.LastName,
+            PublicId = applicationUserCreate.PublicId,
+            ImageUrl = applicationUserCreate.ImageUrl, 
         };
 
         var result = await _userManager.CreateAsync(applicationUserIdentity, applicationUserCreate.Password);
@@ -125,13 +159,15 @@ public class AccountController : ControllerBase
                 LastName = applicationUserIdentity.LastName,
                 Email = applicationUserIdentity.Email,
                 Gender = applicationUserIdentity.Gender,
+                PublicId=applicationUserIdentity.PublicId,
+                ImageUrl = applicationUserIdentity.ImageUrl,
                 Token = _tokenService.CreateToken(applicationUserIdentity)
             };
 
             return user;
         }
 
-        return BadRequest(result.Errors);
+        return BadRequest(result);
     }
 
     [HttpPost("login")]
@@ -156,6 +192,8 @@ public class AccountController : ControllerBase
                     FirstName = applicationUserIdentity.FirstName,
                     LastName = applicationUserIdentity.LastName,
                     Gender = applicationUserIdentity.Gender,
+                    PublicId = applicationUserIdentity.PublicId,
+                    ImageUrl = applicationUserIdentity.ImageUrl,
                     Token = _tokenService.CreateToken(applicationUserIdentity)
                 };
 
@@ -180,6 +218,8 @@ public class AccountController : ControllerBase
             FirstName = account.FirstName,
             LastName = account.LastName,
             Gender = account.Gender,
+            PublicId=account.PublicId,
+            ImageUrl = account.ImageUrl,
         };
 
         return Ok(accountInfo);
@@ -214,5 +254,34 @@ public class AccountController : ControllerBase
 
         return Ok(result);
     }
-    
+
+    [HttpPost("upload_photo")]
+    public async Task<ActionResult<PhotoCreate>> UploadPhoto(IFormFile file)
+    {
+
+        var uploadResult = await _photoService.AddPhotosAsync(file);
+
+        if (uploadResult.Error != null) return BadRequest(uploadResult.Error.Message);
+
+        var photoCreate = new PhotoCreate
+        {
+            PublicId = uploadResult.PublicId,
+            ImageUrl = uploadResult.SecureUrl.AbsoluteUri,
+            Description = file.FileName
+        };
+
+        return Ok(photoCreate);
+    }
+
+    [HttpDelete("profile_photo/{publicId}")]
+    public async Task<ActionResult<int>> DeletePhoto(String publicId)
+    {
+
+        var uploadResult = await _photoService.DeletePhotoAsync(publicId);
+
+        if (uploadResult.Error != null) return BadRequest(uploadResult.Error.Message);
+
+        return Ok("Photo deleted.");
+    }
+
 }

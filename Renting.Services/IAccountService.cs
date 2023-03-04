@@ -10,6 +10,6 @@ namespace Renting.Services
     {
         public string UniqueForEmail(string name, IList<string> emailsList);
         public string UniqueForUsername(string name, IList<string>usernamesList);
-        
+        public string UniqueForYourUsername(string name, string nameOfUser, IList<string> usernamesList);
     }
 }

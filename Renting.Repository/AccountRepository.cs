@@ -28,6 +28,8 @@ public class AccountRepository : IAccountRepository
         dataTable.Columns.Add("PasswordHash", typeof(string));
         dataTable.Columns.Add("FirstName", typeof(string));
         dataTable.Columns.Add("LastName", typeof(string));
+        dataTable.Columns.Add("PublicId", typeof(string));
+        dataTable.Columns.Add("ImageURL", typeof(string));
 
         dataTable.Rows.Add(
             user.Username,
@@ -37,7 +39,9 @@ public class AccountRepository : IAccountRepository
             user.Gender,
             user.PasswordHash,
             user.FirstName,
-            user.LastName
+            user.LastName,
+            user.PublicId,
+            user.ImageUrl
             );
 
         using (var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
@@ -126,7 +130,7 @@ public class AccountRepository : IAccountRepository
                       NormalizedUsername = user.NormalizedUsername,
                       Gender = user.Gender,
                       FirstName = user.FirstName,
-                      LastName = user.LastName,
+                      LastName = user.LastName
                 },
                 commandType: CommandType.StoredProcedure
                 );
@@ -135,6 +139,32 @@ public class AccountRepository : IAccountRepository
         return IdentityResult.Success;
 
     }
+
+    public async Task<IdentityResult> UpdateProfilePhotoAsync(int applicationUserId, String publicId, String imageURL)
+    {
+
+        using (var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
+        {
+            await connection.OpenAsync();
+
+
+            await connection.ExecuteScalarAsync<int?>(
+                "Account_Update_Photo",
+                new
+                {
+                    ApplicationUserId = applicationUserId,
+                    PublicId = publicId,
+                    ImageUrl = imageURL
+                    
+                },
+                commandType: CommandType.StoredProcedure
+                );
+        }
+
+        return IdentityResult.Success;
+
+    }
+
 
     public async Task<List<string>> GetEmailsAsync()
     {

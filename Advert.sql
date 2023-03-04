@@ -1,23 +1,6 @@
 CREATE DATABASE RentingDB;
 USE RentingDB;
 
-CREATE TABLE Account (
-	ApplicationUserId INT NOT NULL IDENTITY(1,1),
-	Username NVARCHAR(20) NOT NULL,
-	NormalizedUsername NVARCHAR(20) NOT NULL,
-	Email VARCHAR(40) NOT NULL,
-	NormalizedEmail VARCHAR(40) NOT NULL,
-	Gender VARCHAR(20) NOT NULL,
-	PasswordHash NVARCHAR(MAX) NOT NULL,
-	FirstName NVARCHAR(20) NULL,
-	LastName NVARCHAR(20) NULL,
-	PRIMARY KEY(ApplicationUserId)
-)
-
-CREATE INDEX [IX_ApplicationUser_NormalizedUsername] ON [dbo].[Account] ([NormalizedUsername])
-
-CREATE INDEX [IX_ApplicationUser_NormalizedEmail] ON [dbo].[Account] ([NormalizedEmail])
-
 CREATE TABLE Advert(
 	AdvertId INT NOT NULL IDENTITY(1,1),
 	ApplicationUserId INT NOT NULL,
@@ -35,29 +18,6 @@ CREATE TABLE Advert(
 	PRIMARY KEY(AdvertId),
 	FOREIGN KEY(ApplicationUserId) REFERENCES Account(ApplicationUserId)
 )
-
-CREATE TYPE [dbo].[AccountType] AS TABLE
-(
-	[Username] VARCHAR(20) NOT NULL,
-	[NormalizedUsername] VARCHAR(20) NOT NULL,
-	[Email] VARCHAR(40) NOT NULL,
-	[NormalizedEmail] VARCHAR(40) NOT NULL,
-	[Gender] VARCHAR(20) NOT NULL,
-	[PasswordHash] NVARCHAR(MAX) NOT NULL,
-	[FirstName] NVARCHAR(20) NULL,
-	[LastName] NVARCHAR(20) NULL
-)
-GO
-
-CREATE TYPE [dbo].[AccountUpdateType] AS TABLE
-(
-	[Username] VARCHAR(20) NOT NULL,
-	[NormalizedUsername] VARCHAR(20) NOT NULL,
-	[Gender] VARCHAR(20) NOT NULL,
-	[FirstName] NVARCHAR(20) NULL,
-	[LastName] NVARCHAR(20) NULL
-)
-GO
 
 CREATE TYPE [dbo].[AdvertType] AS TABLE
 (
@@ -96,97 +56,6 @@ AS
 		dbo.Advert t1
 	INNER JOIN
 		dbo.Account t2 ON t1.ApplicationUserId = t2.ApplicationUserId
-GO
-
-CREATE PROCEDURE [dbo].[Account_GetByUsername]
-	@NormalizedUsername VARCHAR(20)
-AS
-	SELECT
-		t1.ApplicationUserId,
-		t1.Username,
-		t1.NormalizedUsername,
-		t1.Email,
-		t1.NormalizedEmail,
-		t1.Gender,
-		t1.PasswordHash,
-		t1.Firstname,
-		t1.LastName
-	FROM
-		Account t1
-	WHERE 
-		t1.NormalizedUsername = @NormalizedUsername
-GO
-
-CREATE PROCEDURE [dbo].[Account_GetByEmail]
-	@NormalizedEmail VARCHAR(40)
-AS
-	SELECT
-		t1.ApplicationUserId,
-		t1.Username,
-		t1.NormalizedUsername,
-		t1.Email,
-		t1.NormalizedEmail,
-		t1.Gender,
-		t1.PasswordHash,
-		t1.Firstname,
-		t1.LastName
-	FROM
-		Account t1
-	WHERE 
-		t1.NormalizedEmail = @NormalizedEmail
-GO
-
-CREATE PROCEDURE [dbo].[Account_GetByUserId]
-	@ApplicationUserId INT
-AS
-	SELECT
-		t1.ApplicationUserId,
-		t1.Username,
-		t1.Email,
-		t1.Gender,
-		t1.Firstname,
-		t1.LastName
-	FROM
-		Account t1
-	WHERE 
-		t1.ApplicationUserId = @ApplicationUserId
-GO
-
-CREATE PROCEDURE [dbo].[Account_GetEmails] 
-AS
-	SELECT Email FROM Account
-GO
-
-CREATE PROCEDURE [dbo].[Account_GetUsernames] 
-AS
-	SELECT Username FROM Account
-GO
-
-CREATE PROCEDURE [dbo].[Account_Insert]
-	@Account AccountType READONLY
-AS
-	INSERT INTO [dbo].[Account]
-           ([Username],
-           [NormalizedUsername],
-           [Email],
-           [NormalizedEmail],
-		   [Gender],
-           [PasswordHash],
-		   [FirstName],
-		   [LastName])
-	SELECT 
-		[Username],
-        [NormalizedUsername],
-		[Email],
-        [NormalizedEmail],
-		[Gender],
-        [PasswordHash],
-		[FirstName],
-		[LastName]
-	FROM
-		@Account;
-
-	SELECT CAST(SCOPE_IDENTITY() AS INT);
 GO
 
 CREATE PROCEDURE [dbo].[Advert_Get]
@@ -365,54 +234,3 @@ BEGIN
 		FETCH NEXT @PageSize ROWS ONLY;
 		
 END
-
-CREATE PROCEDURE [dbo].[AccountUpdate]
-	@ApplicationUserId INT,
-	@Username NVARCHAR(20),
-	@NormalizedUsername NVARCHAR(20),
-	@Gender VARCHAR(20),
-	@FirstName NVARCHAR(20),
-	@LastName NVARCHAR(20)
-AS
-	UPDATE dbo.Account
-	SET
-		Username = @Username,
-		NormalizedUsername = @NormalizedUsername,
-		Gender = @Gender,
-		FirstName = @FirstName,
-		LastName = @LastName 
-	WHERE ApplicationUserId = @ApplicationUserId
-GO
-
-CREATE PROCEDURE [dbo].[Account_Update]
-	@Account AccountUpdateType READONLY,
-	@ApplicationUserId INT
-AS
-	MERGE INTO [dbo].[Account] TARGET
-	USING(
-		SELECT
-			@ApplicationUserId[ApplicationUserId],
-			Username,
-			NormalizedUsername,
-			Gender,
-			FirstName,
-			LastName
-		FROM
-			@Account
-	)AS SOURCE
-	ON
-	(
-		TARGET.ApplicationUserId = SOURCE.ApplicationUserId
-	)
-	WHEN MATCHED THEN
-		UPDATE SET
-			TARGET.[Username] = SOURCE.[Username],
-			TARGET.[NormalizedUsername] = SOURCE.[NormalizedUsername],
-			TARGET.[Gender] = SOURCE.[Gender],
-			TARGET.[FirstName] = SOURCE.[FirstName],
-			TARGET.[LastName] = SOURCE.[LastName];
-
-	SELECT CAST(SCOPE_IDENTITY() AS INT);
-GO
-
-select * from Account

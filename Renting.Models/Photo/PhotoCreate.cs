@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Renting.Models.AdvertPhoto
+namespace Renting.Models.Photo
 {
     public class PhotoCreate
     {
