@@ -13,7 +13,7 @@ namespace Renting.Repository
 
         public Task<SavedAdvert> GetSavedAdvertAsync(int savedAdvertId);
 
-        public Task<SavedAdvert> GetSavedAdvertsAsync(int applicationUserId);
+        public Task<List<SavedAdvert>> GetSavedAdvertsAsync(int applicationUserId);
 
         public Task<int> UnsaveAdvertAsync(int savedAdvertId);
     }
