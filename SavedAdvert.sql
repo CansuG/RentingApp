@@ -70,8 +70,20 @@ AS
 	FROM 
 		[aggregate].[SavedAdvert] t1
 	WHERE 
-		t1.ApplicationUserId = @ApplicationUserId AND 
-		t1.[ActiveInd] = CONVERT(BIT, 1)
+		t1.ApplicationUserId = @ApplicationUserId
+GO
+
+CREATE PROCEDURE [dbo].[SavedAdvert_Get]
+	@SavedAdvertId INT
+AS
+	SELECT 
+		[SavedAdvertId],
+		[ApplicationUserId],
+		[AdvertId]
+	FROM 
+		[aggregate].[SavedAdvert] t1
+	WHERE 
+		t1.SavedAdvertId = @SavedAdvertId 
 GO
 
 CREATE PROCEDURE [dbo].[SavedAdvert_UnsaveAdvert]
