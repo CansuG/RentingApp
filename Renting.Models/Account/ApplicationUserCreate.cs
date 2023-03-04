@@ -22,6 +22,6 @@ public class ApplicationUserCreate : ApplicationUserLogin
     [Required(ErrorMessage = "Gender is required")]
     [MaxLength(20, ErrorMessage = "Must be at most 20 characters")]
     public string Gender { get; set; }
-    public string ImageUrl { get; set; }
-    public string PublicId { get; set; }
+    public string? ImageUrl { get; set; }
+    public string? PublicId { get; set; }
 }

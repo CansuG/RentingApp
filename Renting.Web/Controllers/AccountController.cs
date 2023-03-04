@@ -84,7 +84,7 @@ public class AccountController : ControllerBase
             return account;
         }
 
-        return BadRequest(result.Errors);
+        return BadRequest(result);
     }
 
 
@@ -111,7 +111,7 @@ public class AccountController : ControllerBase
             return account;
         }
 
-        return BadRequest(resultUpdate.Errors);
+        return BadRequest(resultUpdate);
 
     }
 
@@ -167,7 +167,7 @@ public class AccountController : ControllerBase
             return user;
         }
 
-        return BadRequest(result.Errors);
+        return BadRequest(result);
     }
 
     [HttpPost("login")]
@@ -271,6 +271,17 @@ public class AccountController : ControllerBase
         };
 
         return Ok(photoCreate);
+    }
+
+    [HttpDelete("profile_photo/{publicId}")]
+    public async Task<ActionResult<int>> DeletePhoto(String publicId)
+    {
+
+        var uploadResult = await _photoService.DeletePhotoAsync(publicId);
+
+        if (uploadResult.Error != null) return BadRequest(uploadResult.Error.Message);
+
+        return Ok("Photo deleted.");
     }
 
 }
