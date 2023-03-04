@@ -51,14 +51,18 @@ public class Startup
 
         services.AddControllers();
 
-        services.AddCors(o => o.AddPolicy("App", builder =>
-            builder
-                .WithOrigins("http://localhost:5101", "ionic://localhost", "http://localhost") 
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .AllowCredentials()
-                .SetIsOriginAllowed((host) => true)
-        ));
+        services.AddCors(options =>
+        {
+            var Origins = Configuration["AllowedOrigins"].Split(";");
+            options.AddPolicy(name: "Cors",
+                policy =>
+                {
+                    policy
+                        .WithOrigins(Origins)
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+        });
 
 
         services.AddAuthentication(options =>
@@ -119,12 +123,7 @@ public class Startup
 
         app.UseStaticFiles();
 
-        app.UseCors(options => options
-                                     .AllowAnyHeader()
-                                     .AllowAnyMethod()
-                                     .AllowCredentials()
-                                     .WithOrigins("http://localhost:5101")
-                                     .SetIsOriginAllowed((host) => true));
+        app.UseCors("Cors");
 
         app.UseAuthentication();
 
