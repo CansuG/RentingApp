@@ -35,6 +35,7 @@ public class AccountController : ControllerBase
         _accountService = accountService;
         _accountRepository = accountRepository;
         _photoService = photoService;
+
     }
 
     [Authorize]
@@ -170,7 +171,7 @@ public class AccountController : ControllerBase
         return BadRequest(result);
     }
 
-    [Authorize]
+    
     [HttpPost("login")]
     public async Task<ActionResult<ApplicationUser>> Login(ApplicationUserLogin applicationUserLogin)
     {
@@ -279,10 +280,20 @@ public class AccountController : ControllerBase
     [HttpDelete("profile_photo/{publicId}")]
     public async Task<ActionResult<int>> DeletePhoto(String publicId)
     {
+        var avatarPhotoPublicId = "tyjcpvmmrjjcwplppxfo";
+        var avatarPhotoImageUrl = "https://res.cloudinary.com/ddkjxhjyy/image/upload/v1677964732/tyjcpvmmrjjcwplppxfo.png";
 
+        if (publicId.Equals(avatarPhotoPublicId))
+        {
+            return BadRequest("This photo cannot be deleted."); 
+            // Avatar photo shouldn't be deleted.
+        }
         var uploadResult = await _photoService.DeletePhotoAsync(publicId);
 
         if (uploadResult.Error != null) return BadRequest(uploadResult.Error.Message);
+
+        int applicationUserId = int.Parse(User.Claims.First(i => i.Type == JwtRegisteredClaimNames.NameId).Value);
+        var resultUpdate = await _accountRepository.UpdateProfilePhotoAsync(applicationUserId, avatarPhotoPublicId, avatarPhotoImageUrl);
 
         return Ok("Photo deleted.");
     }
