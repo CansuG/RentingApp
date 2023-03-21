@@ -35,7 +35,6 @@ public class AccountController : ControllerBase
         _accountService = accountService;
         _accountRepository = accountRepository;
         _photoService = photoService;
-
     }
 
     [Authorize]
@@ -82,7 +81,7 @@ public class AccountController : ControllerBase
                 PublicId = identity.PublicId,
                 ImageUrl = identity.ImageUrl,
             };
-            return Ok("User's information is updated." + account);
+            return account;
         }
 
         return BadRequest(result);
@@ -109,7 +108,7 @@ public class AccountController : ControllerBase
                 PublicId = identity.PublicId,
                 ImageUrl = identity.ImageUrl,
             };
-            return Ok("User's profile photo is updated." + account); ;
+            return account;
         }
 
         return BadRequest(resultUpdate);
@@ -165,13 +164,13 @@ public class AccountController : ControllerBase
                 Token = _tokenService.CreateToken(applicationUserIdentity)
             };
 
-            return Ok("Account is created succesfully." + user);
+            return user;
         }
 
         return BadRequest(result);
     }
 
-    
+    [Authorize]
     [HttpPost("login")]
     public async Task<ActionResult<ApplicationUser>> Login(ApplicationUserLogin applicationUserLogin)
     {
@@ -199,7 +198,7 @@ public class AccountController : ControllerBase
                     Token = _tokenService.CreateToken(applicationUserIdentity)
                 };
 
-                return Ok("Login is succesfull." + applicationUser);
+                return Ok(applicationUser);
             }
 
         }
@@ -273,7 +272,7 @@ public class AccountController : ControllerBase
             Description = file.FileName
         };
 
-        return Ok("Photo uploaded to cloudinary." + photoCreate );
+        return Ok(photoCreate);
     }
 
     [Authorize]
@@ -289,11 +288,6 @@ public class AccountController : ControllerBase
         var avatarPhotoPublicId = "tyjcpvmmrjjcwplppxfo";
         var avatarPhotoImageUrl = "https://res.cloudinary.com/ddkjxhjyy/image/upload/v1677964732/tyjcpvmmrjjcwplppxfo.png";
 
-        if (publicId.Equals(avatarPhotoPublicId))
-        {
-            return BadRequest("This photo cannot be deleted."); 
-            // Avatar photo shouldn't be deleted.
-        }
         var uploadResult = await _photoService.DeletePhotoAsync(publicId);
 
         if (uploadResult.Error != null) return BadRequest(uploadResult.Error.Message);
