@@ -82,7 +82,7 @@ public class AccountController : ControllerBase
                 PublicId = identity.PublicId,
                 ImageUrl = identity.ImageUrl,
             };
-            return account;
+            return Ok("User's information is updated." + account);
         }
 
         return BadRequest(result);
@@ -109,7 +109,7 @@ public class AccountController : ControllerBase
                 PublicId = identity.PublicId,
                 ImageUrl = identity.ImageUrl,
             };
-            return account;
+            return Ok("User's profile photo is updated." + account); ;
         }
 
         return BadRequest(resultUpdate);
@@ -165,7 +165,7 @@ public class AccountController : ControllerBase
                 Token = _tokenService.CreateToken(applicationUserIdentity)
             };
 
-            return user;
+            return Ok("Account is created succesfully." + user);
         }
 
         return BadRequest(result);
@@ -199,7 +199,7 @@ public class AccountController : ControllerBase
                     Token = _tokenService.CreateToken(applicationUserIdentity)
                 };
 
-                return Ok(applicationUser);
+                return Ok("Login is succesfull." + applicationUser);
             }
 
         }
@@ -273,13 +273,19 @@ public class AccountController : ControllerBase
             Description = file.FileName
         };
 
-        return Ok(photoCreate);
+        return Ok("Photo uploaded to cloudinary." + photoCreate );
     }
 
     [Authorize]
-    [HttpDelete("profile_photo/{publicId}")]
-    public async Task<ActionResult<int>> DeletePhoto(String publicId)
+    [HttpDelete("profile_photo")]
+    public async Task<ActionResult<int>> DeletePhoto()
     {
+        int applicationUserId = int.Parse(User.Claims.First(i => i.Type == JwtRegisteredClaimNames.NameId).Value);
+
+        var user = await _userManager.FindByIdAsync(applicationUserId.ToString());
+
+        var publicId = user.PublicId;
+
         var avatarPhotoPublicId = "tyjcpvmmrjjcwplppxfo";
         var avatarPhotoImageUrl = "https://res.cloudinary.com/ddkjxhjyy/image/upload/v1677964732/tyjcpvmmrjjcwplppxfo.png";
 
@@ -292,7 +298,6 @@ public class AccountController : ControllerBase
 
         if (uploadResult.Error != null) return BadRequest(uploadResult.Error.Message);
 
-        int applicationUserId = int.Parse(User.Claims.First(i => i.Type == JwtRegisteredClaimNames.NameId).Value);
         var resultUpdate = await _accountRepository.UpdateProfilePhotoAsync(applicationUserId, avatarPhotoPublicId, avatarPhotoImageUrl);
 
         return Ok("Photo deleted.");

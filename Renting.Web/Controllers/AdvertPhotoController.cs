@@ -58,7 +58,7 @@ namespace Renting.Controllers
                 Description = file.FileName
             };
 
-            return Ok(photoCreate);
+            return Ok("Photo is uploaded to cloudinary." + photoCreate);
         }
 
         [HttpPost]
@@ -77,7 +77,7 @@ namespace Renting.Controllers
                 return BadRequest("You cannot add more than 10 photos");
             }
 
-            return Ok(newPhoto);
+            return Ok("Photo is added" + newPhoto);
         }
 
         [HttpDelete("delete/{photoId}")]
