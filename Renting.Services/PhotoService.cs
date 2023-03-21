@@ -15,13 +15,12 @@ namespace Renting.Services
     {
         private readonly Cloudinary _cloudinary;
 
-
         public PhotoService(IOptions<CloudinaryOptions> config)
         {
             var account = new Account(config.Value.CloudName, config.Value.ApiKey, config.Value.ApiSecret);
 
             _cloudinary = new Cloudinary(account);
-    }
+        }
         public async Task<ImageUploadResult> AddPhotosAsync(IFormFile file)
         {
             var uploadResult = new ImageUploadResult();
