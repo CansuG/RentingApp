@@ -20,7 +20,7 @@ public class SavedAdvertController : ControllerBase
         {
             return BadRequest("This advert cannot be saved.");
         }
-        return Ok("Advert has been saved." + savedAdvert);
+        return Ok(savedAdvert);
     }
 
     [HttpGet("{applicationUserId}")]

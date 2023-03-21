@@ -26,7 +26,7 @@ public class AdvertController : ControllerBase
 
         var advert = await _advertRepository.UpsertAsync(advertCreate, applicationUserId);
 
-        return Ok("Advert is created." + advert);
+        return Ok(advert);
     }
 
     [HttpGet("{advertId}")]

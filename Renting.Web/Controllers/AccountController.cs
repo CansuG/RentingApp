@@ -170,7 +170,6 @@ public class AccountController : ControllerBase
         return BadRequest(result);
     }
 
-    [Authorize]
     [HttpPost("login")]
     public async Task<ActionResult<ApplicationUser>> Login(ApplicationUserLogin applicationUserLogin)
     {
@@ -288,6 +287,11 @@ public class AccountController : ControllerBase
         var avatarPhotoPublicId = "tyjcpvmmrjjcwplppxfo";
         var avatarPhotoImageUrl = "https://res.cloudinary.com/ddkjxhjyy/image/upload/v1677964732/tyjcpvmmrjjcwplppxfo.png";
 
+        if (publicId.Equals(avatarPhotoPublicId))
+        {
+            return BadRequest("This photo cannot be deleted.");
+            // Avatar photo shouldn't be deleted.
+        }
         var uploadResult = await _photoService.DeletePhotoAsync(publicId);
 
         if (uploadResult.Error != null) return BadRequest(uploadResult.Error.Message);
