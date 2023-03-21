@@ -26,7 +26,7 @@ public class AdvertController : ControllerBase
 
         var advert = await _advertRepository.UpsertAsync(advertCreate, applicationUserId);
 
-        return Ok(advert);
+        return Ok("Advert is created." + advert);
     }
 
     [HttpGet("{advertId}")]
@@ -82,7 +82,7 @@ public class AdvertController : ControllerBase
         {
             var affectedRows = await _advertRepository.DeleteAsync(advertId);
 
-            return Ok(affectedRows);
+            return Ok("Delete is succesfull." + affectedRows + " rows are affected.");
         }
         else
         {
